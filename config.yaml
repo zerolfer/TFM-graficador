@@ -1,0 +1,49 @@
+##################################
+##    Fichero de propiedades    ##
+##################################
+
+# Nombre común de los archivo de entrada, es decir de los archivos de salida del Sistema
+input_name: output
+
+# Direccion URL a la que se ha de buscar los csv
+input_base_url: C:/Users/Administrador/OneDrive/analisis parametrico/SVNS/alphas/
+
+# path (relativo u absoluto) donde almacenar las gráficas de salida
+output_path: graficas/
+
+# nombre de la grafica de salida
+fig_name: grafica_alphas
+
+
+# --
+
+
+# identificador de ejecucion inicial
+start_id: 5
+
+## nombres de la leyenda de la gráfica
+# representa el significado de cada fichero
+# se deben incluir de forma ordenada por id de la ejecucion
+nombres:
+  - "\u03B1 = 0.5"
+  - "\u03B1 = 1"
+  - "\u03B1 = 2"
+  - "\u03B1 = 5"
+  - "\u03B1 = 10"
+  - "\u03B1 = 15"
+  - "\u03B1 = 20"
+  - "\u03B1 = 30"
+  - "\u03B1 = 40"
+  - "\u03B1 = 50"
+
+
+# --
+
+
+# etiqueta para el eje Y
+name_y_axis: Fitness
+
+## Decide si mostrar o no el Slider dinamico.
+# Solo disponible en el formato de salida HTML
+show_slider: true
+
