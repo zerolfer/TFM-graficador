@@ -100,6 +100,16 @@ if __name__ == '__main__':
     # Dynamic format
     py.io.write_html(fig, file=output_path + fig_name + '.html') #, auto_open=False)
 
+    # en el output estatico no queremos Slider en ningun caso
+    if param["show_slider"]:
+        fig.update_layout(
+            xaxis=go.layout.XAxis(
+                rangeslider=dict(
+                    visible=False
+                )
+            )  # , xaxis_domain=[0, 1]
+        )
+
     # LaTeX format
     fig.write_image(output_path+fig_name+".eps", scale=7)
 
