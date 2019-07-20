@@ -52,6 +52,7 @@ def create_layout(y_name):
         paper_bgcolor='white',
         plot_bgcolor='white',
         legend_orientation="h",
+        title=dict(text=param["fig_title"], x=0.5, xanchor="center", y=0.9),
         xaxis=dict(showgrid=False, gridwidth=1, gridcolor='lightgray', title_text='Iteraciones'),
         yaxis=dict(showgrid=True, gridwidth=1, gridcolor='lightgray', tick0=0, dtick=0.05, title_text=y_name)
     )
@@ -70,10 +71,13 @@ def add_lines(fig, nombres, mejor_fitness, x):
 
 # %%
 
-if __name__ == '__main__':
-    nombres = param["nombres"]  # [u"\u03B1=" + str(x) for x in [0.5, 1, 2, 5, 10, 15, 20, 30, 40, 50]]
+
+def exportar():
+
+    nombres = param["nombres"]
     plot_info = leer_datos(range(param["start_id"], param["start_id"] + len(nombres) - 1))
 
+    print('\nEXPORTANDO...', end='')
     # Definir grafica
     # noinspection PyUnresolvedReferences
     fig = go.Figure(layout=create_layout(param["name_y_axis"]))
@@ -91,6 +95,7 @@ if __name__ == '__main__':
     )
 
     # graficar
+
     fig_name = param["fig_name"]
 
     # fig.show(renderer='browser', scale=1.25, width=800,
@@ -98,7 +103,7 @@ if __name__ == '__main__':
     # fig.show(renderer='notebook', scale=1.25,  width=800, height=500) # default size: width=700, height=450, scale=None
 
     # Dynamic format
-    py.io.write_html(fig, file=output_path + fig_name + '.html') #, auto_open=False)
+    py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=True)
 
     # en el output estatico no queremos Slider en ningun caso
     if param["show_slider"]:
@@ -111,7 +116,13 @@ if __name__ == '__main__':
         )
 
     # LaTeX format
-    fig.write_image(output_path+fig_name+".eps", scale=7)
+    fig.write_image(output_path + fig_name + ".eps", scale=7)
 
     # Static format
-    fig.write_image(output_path+fig_name+".png", scale=10)
+    fig.write_image(output_path + fig_name + ".png", scale=10)
+
+    print('PROCESAMIENTO FINALIZADO')
+
+
+if __name__ == '__main__':
+    exportar()

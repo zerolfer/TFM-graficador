@@ -43,6 +43,8 @@ nombres:
 # etiqueta para el eje Y
 name_y_axis: Fitness
 
+fig_title: "Fitness e iteraciones SVNS por 10 minutos usando diferentes valores de \u03B1"
+
 ## Decide si mostrar o no el Slider dinamico.
 # Solo disponible en el formato de salida HTML
 show_slider: true
