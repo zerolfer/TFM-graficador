@@ -10,7 +10,10 @@ class GeneradorGraficas:
     urls_ficheros_propiedades = []
 
     def __init__(self, urls_ficheros_propiedades):
-        self.urls_ficheros_propiedades.extend(urls_ficheros_propiedades)
+        if not urls_ficheros_propiedades:
+            self.urls_ficheros_propiedades = ["config.yaml"] # por defecto se utiliza el fichero raiz
+        else:
+            self.urls_ficheros_propiedades.extend(urls_ficheros_propiedades)
 
     def execute(self):
         for url_params in self.urls_ficheros_propiedades:
@@ -123,4 +126,3 @@ class GeneradorGraficas:
         fig.write_image(output_path + fig_name + ".png", scale=10)
 
         print('PROCESAMIENTO FINALIZADO\n')
-
