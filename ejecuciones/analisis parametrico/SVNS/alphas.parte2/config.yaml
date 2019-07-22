@@ -6,35 +6,32 @@
 input_name: output
 
 # Direccion URL a la que se ha de buscar los csv
-input_base_url: C:/Users/Administrador/OneDrive/analisis parametrico/SVNS/alphas/
+# IMPORTANTE: Debe terminar con una barra (\ o /)
+input_base_url: ejecuciones/analisis parametrico/SVNS/alphas.parte2/
 
-# path (relativo u absoluto) donde almacenar las gráficas de salida
+# path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
+# IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
 output_path: graficas/
 
 # nombre de la grafica de salida
-fig_name: grafica_alphas
+fig_name: grafica_alphas_2
 
 
 # --
 
 
 # identificador de ejecucion inicial
-start_id: 5
+start_id: 1
+
 
 ## nombres de la leyenda de la gráfica
-# representa el significado de cada fichero
-# se deben incluir de forma ordenada por id de la ejecucion
-nombres:
-  - "\u03B1 = 0.5"
-  - "\u03B1 = 1"
-  - "\u03B1 = 2"
-  - "\u03B1 = 5"
-  - "\u03B1 = 10"
-  - "\u03B1 = 15"
-  - "\u03B1 = 20"
-  - "\u03B1 = 30"
-  - "\u03B1 = 40"
-  - "\u03B1 = 50"
+## representa el significado de cada fichero:
+
+# string a anteponer al valor de cada ejecución en la leyenda de la gráfica
+parametro: "\u03B1 = "
+
+# lista de valores de cada ejecucion ordenada por id de la misma
+valores: [15, 15.5, 16, 16.5, 17, 17.5, 18, 18.5, 19, 19.5, 20]
 
 
 # --

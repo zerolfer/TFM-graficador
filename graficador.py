@@ -5,10 +5,27 @@ import plotly.graph_objects as go
 import plotly as py
 import yaml
 
-param = yaml.load(open('config.yaml', 'r'), Loader=yaml.Loader)
+
+# class GeneradorGraficas:
+#     def __init__(self):
+
+
+'''
+MODIFICAR SOLAMENTE ÉSTE VALOR SEGÚN EL FICHERO DE PROPIEDADES DE CADA EJECUCIÓN
+'''
+URL_FICHERO_PROPIEDADES = 'ejecuciones/analisis parametrico/' \
+                          'SVNS/' \
+                          'alphas.parte2/' \
+                          'config.yaml'
+
+
+
+
+param = yaml.load(open(URL_FICHERO_PROPIEDADES, 'r'), Loader=yaml.Loader)
+print('LEIDO FICHERO PROPIEDADES '+ URL_FICHERO_PROPIEDADES)
 
 # crear el directorio de salida en caso de que no exista
-output_path = param["output_path"]
+output_path = param["input_base_url"] + param["output_path"]
 if not os.path.exists(output_path):
     os.mkdir(output_path)
 
@@ -58,31 +75,31 @@ def create_layout(y_name):
     )
 
 
-def add_lines(fig, nombres, mejor_fitness, x):
-    for c, n in zip(mejor_fitness, nombres):
+def add_lines(fig, valores, mejor_fitness, x):
+    p = param["parametro"]
+    for c, n in zip(mejor_fitness, valores):
         # noinspection PyUnresolvedReferences
         fig.add_trace(go.Scatter(x=x, y=c,
                                  # line=dict(
                                  # color='firebrick',
                                  # width=2
                                  # ),
-                                 name=n))
+                                 name=p + str(n)))
 
 
 # %%
 
 
 def exportar():
+    valores = param["valores"]
+    plot_info = leer_datos(range(param["start_id"], param["start_id"] + len(valores) - 1))
 
-    nombres = param["nombres"]
-    plot_info = leer_datos(range(param["start_id"], param["start_id"] + len(nombres) - 1))
-
-    print('\nEXPORTANDO...', end='')
+    print('\nEXPORTANDO ('+output_path+') ... ', end='')
     # Definir grafica
     # noinspection PyUnresolvedReferences
     fig = go.Figure(layout=create_layout(param["name_y_axis"]))
 
-    add_lines(fig, nombres, plot_info[:-1], plot_info[-1])
+    add_lines(fig, valores, plot_info[:-1], plot_info[-1])
 
     # Add range slider
     # noinspection PyUnresolvedReferences
@@ -103,7 +120,7 @@ def exportar():
     # fig.show(renderer='notebook', scale=1.25,  width=800, height=500) # default size: width=700, height=450, scale=None
 
     # Dynamic format
-    py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=True)
+    py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=False)
 
     # en el output estatico no queremos Slider en ningun caso
     if param["show_slider"]:
