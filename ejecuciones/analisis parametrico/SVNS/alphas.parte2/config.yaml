@@ -19,6 +19,9 @@ fig_name: grafica_alphas_2
 
 # --
 
+# posibles valores: 'iteracion', 'tiempo (ms)', 'fitness mejor', 'tamaño', 'numIterSinMejora',
+#  'vecindad', 'fitness sol actual', 'fitness BL', 'distancia'
+column_to_plot: "fitness mejor"
 
 # identificador de ejecucion inicial
 start_id: 1

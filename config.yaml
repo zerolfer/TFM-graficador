@@ -11,14 +11,17 @@ input_base_url: C:\Users\Administrador\Documents\Proyecto-Salomon\resultados\Cas
 
 # path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
-output_path: graficas/
+output_path: ../Graficas/
 
-# nombre de la grafica de salida
+# nombre del fichero de salida
 fig_name: grafica_alphas_distanciaSlots
 
 
-# --
+# -- DATA:
 
+# posibles valores: 'iteracion', 'tiempo (ms)', 'fitness mejor', 'tamaño', 'numIterSinMejora',
+#  'vecindad', 'fitness sol actual', 'fitness BL', 'distancia'
+column_to_plot: "fitness mejor"
 
 # identificador de ejecucion inicial
 start_id: 1
@@ -31,10 +34,10 @@ start_id: 1
 parametro: "\u03B1 = "
 
 # lista de valores de cada ejecucion ordenada por id de la misma
-valores: [0.5, 1, 2, 5, 10]
+valores: [0.5, 1, 2, 5, 10, 15, 20, 30, 40, 50]
 
 
-# --
+# -- APPEARANCE:
 
 
 # etiqueta para el eje Y

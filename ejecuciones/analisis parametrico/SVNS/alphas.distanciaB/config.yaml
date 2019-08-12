@@ -7,24 +7,24 @@ input_name: output
 
 # Direccion URL a la que se ha de buscar los csv
 # IMPORTANTE: Debe terminar con una barra (\ o /)
-input_base_url: ejecuciones/analisis parametrico/SVNS/alphas/
+input_base_url: ejecuciones/analisis parametrico/SVNS/alphas.distanciaB/
 
 # path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
 output_path: graficas/
 
-# nombre de la grafica de salida
-fig_name: grafica_alphas
+# nombre del fichero de salida
+fig_name: grafica_alphas_distanciaSlots_vecindad
 
 
 # -- DATA:
 
 # posibles valores: 'iteracion', 'tiempo (ms)', 'fitness mejor', 'tamaño', 'numIterSinMejora',
 #  'vecindad', 'fitness sol actual', 'fitness BL', 'distancia'
-column_to_plot: "fitness mejor"
+column_to_plot: vecindad
 
 # identificador de ejecucion inicial
-start_id: 5
+start_id: 1
 
 
 ## nombres de la leyenda de la gráfica

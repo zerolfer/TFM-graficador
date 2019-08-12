@@ -45,7 +45,7 @@ class GeneradorGraficas:
 
         for i in range(shift, len(id_list) + 1 + shift):
             df = self.inicializar_df(param, url, str(i))
-            plot_info.append(df['fitness mejor'])
+            plot_info.append(df[param["column_to_plot"]])
 
             if len(df['iteracion']) > num_iter_max:
                 num_iter_max = len(df['iteracion'])
