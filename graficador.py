@@ -9,11 +9,11 @@ import yaml
 class GeneradorGraficas:
     urls_ficheros_propiedades = []
 
-    def __init__(self, urls_ficheros_propiedades):
-        if not urls_ficheros_propiedades:
-            self.urls_ficheros_propiedades = ["config.yaml"] # por defecto se utiliza el fichero raiz
-        else:
-            self.urls_ficheros_propiedades.extend(urls_ficheros_propiedades)
+    def __init__(self, urls_ficheros_propiedades=("config.yaml")):
+        # if not urls_ficheros_propiedades:
+        #     self.urls_ficheros_propiedades = ["config.yaml"]  # por defecto se utiliza el fichero raiz
+        # else:
+        self.urls_ficheros_propiedades.extend(urls_ficheros_propiedades)
 
     def execute(self):
         for url_params in self.urls_ficheros_propiedades:
@@ -23,7 +23,7 @@ class GeneradorGraficas:
             # crear el directorio de salida en caso de que no exista
             output_path = param["input_base_url"] + param["output_path"]
             if not os.path.exists(output_path):
-                os.mkdir(output_path)
+                os.makedirs(output_path)
 
             '''direccion URL base donde obtener los ficheros'''
             url = param["input_base_url"]
@@ -33,8 +33,10 @@ class GeneradorGraficas:
     def inicializar_df(self, param, url, num_str):
         filename = param["input_name"] + num_str + '.csv'
         print('DATOS LEIDOS DE ' + url + filename)
-        return pd.read_csv(url + filename, sep=';', names=['iteracion', 'tiempo (ms)', 'fitness mejor', 'tamaño',
-                                                           'numIterSinMejora', 'vecindad', 'fitness sol actual',
+        return pd.read_csv(url + filename, sep=';', names=['iteracion', 'tiempo (ms)', 'fitness mejor',
+                                                           'fitness 1', 'fitness 2', 'fitness 3', 'fitness 4',
+                                                           'tamaño', 'numIterSinMejora', 'vecindad', 'porcentaje mejora'
+                                                                                                     'fitness sol actual',
                                                            'fitness BL', 'distancia'],
                            skiprows=[0])
 
@@ -57,14 +59,20 @@ class GeneradorGraficas:
     def create_layout(self, param):
         y_name = param["name_y_axis"]
         # noinspection PyUnresolvedReferences
-        return go.Layout(
+        lay = go.Layout(
             paper_bgcolor='white',
             plot_bgcolor='white',
             legend_orientation="h",
             title=dict(text=param["fig_title"], x=0.5, xanchor="center", y=0.9),
-            xaxis=dict(showgrid=False, gridwidth=1, gridcolor='lightgray', title_text='Iteraciones'),
-            yaxis=dict(showgrid=True, gridwidth=1, gridcolor='lightgray', tick0=0, dtick=0.05, title_text=y_name)
+            xaxis=dict(showgrid=False, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
+                       zeroline=True, zerolinecolor='lightgray', title_text='Iteraciones'),
+            yaxis=dict(showgrid=True, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
+                       zeroline=True, zerolinecolor='lightgray', title_text=y_name, range=[None, 1])  # tick0=0,dtick=0.05,
         )
+        lay.yaxis.zerolinecolor = 'lightgray'
+        lay.yaxis.zeroline=True
+
+        return lay
 
     def add_lines(self, param, fig, valores, mejor_fitness, x):
         p = param["parametro"]

@@ -1,0 +1,51 @@
+##############################################
+##    Fichero de propiedades por defecto    ##
+##############################################
+
+# Nombre común de los archivo de entrada, es decir de los archivos de salida del Sistema
+input_name: output
+
+# Direccion URL a la que se ha de buscar los csv
+# IMPORTANTE: Debe terminar con una barra (\ o /)
+input_base_url: C:\Users\Administrador\Documents\TFM-graficador\ejecuciones\analisis parametrico\SVNS\alphas.distanciaSlots\Caso9Id1m-13-09-2018\VNS\Trazas\
+
+# path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
+# IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
+output_path: ../Graficas/
+
+# nombre del fichero de salida
+fig_name: grafica_alphas_distanciaSlots
+
+
+# -- DATA:
+
+# posibles valores: 'iteracion', 'tiempo (ms)', 'fitness mejor', 'tamaño', 'numIterSinMejora',
+#  'vecindad', 'fitness sol actual', 'fitness BL', 'distancia'
+column_to_plot: "fitness mejor"
+
+# identificador de ejecucion inicial
+start_id: 1
+
+
+## nombres de la leyenda de la gráfica
+## representa el significado de cada fichero:
+
+# string a anteponer al valor de cada ejecución en la leyenda de la gráfica
+parametro: "\u03B1 = "
+
+# lista de valores de cada ejecucion ordenada por id de la misma
+valores: [0.5, 1, 2, 5, 10, 15, 20, 30, 40, 50]
+
+
+# -- APPEARANCE:
+
+
+# etiqueta para el eje Y
+name_y_axis: Fitness
+
+fig_title: "Fitness e iteraciones SVNS por 10 minutos usando diferentes valores de \u03B1"
+
+## Decide si mostrar o no el Slider dinamico.
+# Solo disponible en el formato de salida HTML
+show_slider: true
+
