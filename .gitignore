@@ -2,3 +2,4 @@
 graficas/
 __pycache__/
 *~$4 *
+.ipynb_checkpoints/

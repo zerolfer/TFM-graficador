@@ -21,24 +21,34 @@ class GeneradorGraficas:
             print('LEIDO FICHERO PROPIEDADES ' + url_params)
 
             # crear el directorio de salida en caso de que no exista
-            output_path = param["input_base_url"] + param["output_path"]
-            if not os.path.exists(output_path):
-                os.makedirs(output_path)
+            output_paths = [base + param["output_path"] for base in param["input_base_url"]]
+            for path in output_paths:
+                if not os.path.exists(path):
+                    os.makedirs(path)
 
             '''direccion URL base donde obtener los ficheros'''
-            url = param["input_base_url"]
-
-            self.exportar(param, url, output_path)
+            for url, out in zip(param["input_base_url"], output_paths):
+                self.exportar(param, url, out)
 
     def inicializar_df(self, param, url, num_str):
         filename = param["input_name"] + num_str + '.csv'
+        df = pd.read_csv(url + filename, sep=';', names=self.get_column_names(param), skiprows=[0])
         print('DATOS LEIDOS DE ' + url + filename)
-        return pd.read_csv(url + filename, sep=';', names=['iteracion', 'tiempo (ms)', 'fitness mejor',
-                                                           'fitness 1', 'fitness 2', 'fitness 3', 'fitness 4',
-                                                           'tamaño', 'numIterSinMejora', 'vecindad', 'porcentaje mejora'
-                                                                                                     'fitness sol actual',
-                                                           'fitness BL', 'distancia'],
-                           skiprows=[0])
+        return df
+
+    def get_column_names(self, param):
+        try:
+            return param["column_names"]
+        except:
+            return ['iteracion', 'tiempo (ms)', 'fitness mejor',
+                    'fitness 1', 'fitness 2', 'fitness 3', 'fitness 4',
+                    'tamaño',
+                    # 'numIterSinMejora',
+                    'porcentaje mejora',
+                    'vecindad',
+                    # 'fitness sol actual',
+                    # 'fitness BL', 'distancia'
+                    ]
 
     def leer_datos(self, param, url, id_list):
         shift = param["start_id"]
@@ -67,10 +77,11 @@ class GeneradorGraficas:
             xaxis=dict(showgrid=False, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
                        zeroline=True, zerolinecolor='lightgray', title_text='Iteraciones'),
             yaxis=dict(showgrid=True, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
-                       zeroline=True, zerolinecolor='lightgray', title_text=y_name, range=[None, 1])  # tick0=0,dtick=0.05,
+                       zeroline=True, zerolinecolor='lightgray', title_text=y_name, range=[None, 1])
+            # tick0=0,dtick=0.05,
         )
         lay.yaxis.zerolinecolor = 'lightgray'
-        lay.yaxis.zeroline=True
+        lay.yaxis.zeroline = True
 
         return lay
 

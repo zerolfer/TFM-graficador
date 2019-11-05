@@ -7,7 +7,7 @@ input_name: output
 
 # Direccion URL a la que se ha de buscar los csv
 # IMPORTANTE: Debe terminar con una barra (\ o /)
-input_base_url: ejecuciones/analisis parametrico/SVNS/alphas.distanciaB/
+input_base_url: [ejecuciones/analisis parametrico/SVNS/alphas.distanciaB/]
 
 # path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella

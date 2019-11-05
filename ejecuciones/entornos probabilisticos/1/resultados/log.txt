@@ -1,0 +1,95 @@
+[2019-11-04 20:55:24] [INFO   ] [ Ejecutando RVNS ] [ Caso1 ] [ Por 600 segundos ]
+[2019-11-04 21:05:24] [INFO   ] [Fin VNS] Fitness final: 0.9690057853312044    |    Fitness desglosado: [0.0, 0.962255658436214, 0.9999999999999996, 0.6532792925571113]    |    iteraciones totales: 241526    |    porcentajeMejora: 0.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 24    |    Numero de reinicios: 30133    |    Restricciones: 16.305555555555554
+
+[2019-11-04 21:05:25] [INFO   ] [ Ejecutando BVNS ] [ Caso1 ] [ Por 600 segundos ]
+[2019-11-04 21:15:25] [INFO   ] [Fin VNS] Fitness final: 0.9682499539425201    |    Fitness desglosado: [0.0, 0.9627314814814815, 0.9999999999999996, 0.6385408990420044]    |    iteraciones totales: 3076    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 24    |    Numero de reinicios: 366    |    Restricciones: 16.1
+
+[2019-11-04 21:15:26] [INFO   ] [ Ejecutando GVNS ] [ Caso1 ] [ Por 600 segundos ]
+[2019-11-04 21:25:26] [INFO   ] [Fin VNS] Fitness final: 0.9691819731024318    |    Fitness desglosado: [0.0, 0.9692129629629629, 0.9999999999999996, 0.6249078850405305]    |    iteraciones totales: 3065    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 24    |    Numero de reinicios: 365    |    Restricciones: 13.299999999999999
+
+[2019-11-04 21:25:26] [INFO   ] [ Ejecutando SVNS ] [ Caso1 ] [ Por 600 segundos ]
+[2019-11-04 21:35:26] [INFO   ] [Fin VNS] Fitness final: 0.9374321573323509    |    Fitness desglosado: [0.0, 0.9099537037037037, 0.9166666666666663, 0.5707442888725129]    |    iteraciones totales: 4403    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 24    |    Numero de reinicios: 3    |    Restricciones: 38.90000000000001
+
+[2019-11-04 21:35:27] [INFO   ] [ Ejecutando RVNS ] [ Caso3 ] [ Por 600 segundos ]
+[2019-11-04 21:45:27] [INFO   ] [Fin VNS] Fitness final: 0.8022371881503317    |    Fitness desglosado: [0.702288, 0.9128888888888889, 1.0000000000000002, 0.676123802505527]    |    iteraciones totales: 240084    |    porcentajeMejora: 0.006632277081797255 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 25    |    Numero de reinicios: 29954    |    Restricciones: 39.2
+
+[2019-11-04 21:45:27] [INFO   ] [ Ejecutando BVNS ] [ Caso3 ] [ Por 600 segundos ]
+[2019-11-04 21:55:27] [INFO   ] [Fin VNS] Fitness final: 0.8097671475313192    |    Fitness desglosado: [0.7072800000000001, 0.9158518518518518, 1.0000000000000002, 0.7450257921886514]    |    iteraciones totales: 3112    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 25    |    Numero de reinicios: 370    |    Restricciones: 37.86666666666667
+
+[2019-11-04 21:55:27] [INFO   ] [ Ejecutando GVNS ] [ Caso3 ] [ Por 600 segundos ]
+[2019-11-04 22:05:27] [INFO   ] [Fin VNS] Fitness final: 0.8051682871432081    |    Fitness desglosado: [0.705488, 0.914716049382716, 1.0000000000000002, 0.6890198968312453]    |    iteraciones totales: 2982    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 25    |    Numero de reinicios: 360    |    Restricciones: 38.37777777777778
+
+[2019-11-04 22:05:28] [INFO   ] [ Ejecutando SVNS ] [ Caso3 ] [ Por 600 segundos ]
+[2019-11-04 22:15:28] [INFO   ] [Fin VNS] Fitness final: 0.789592697302874    |    Fitness desglosado: [0.6960159999999999, 0.9188148148148149, 0.9200000000000003, 0.6930729550478998]    |    iteraciones totales: 4565    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 25    |    Numero de reinicios: 4    |    Restricciones: 36.53333333333333
+
+[2019-11-04 22:15:28] [INFO   ] [ Ejecutando RVNS ] [ Caso4 ] [ Por 600 segundos ]
+[2019-11-04 22:25:28] [INFO   ] [Fin VNS] Fitness final: 0.9093943191311612    |    Fitness desglosado: [0.0, 0.9941520467836257, 0.47368421052631576, 0.832010582010582]    |    iteraciones totales: 2363192    |    porcentajeMejora: 0.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 295387    |    Restricciones: 2.0
+
+[2019-11-04 22:25:28] [INFO   ] [ Ejecutando BVNS ] [ Caso4 ] [ Por 600 segundos ]
+[2019-11-04 22:35:28] [INFO   ] [Fin VNS] Fitness final: 0.9102673350041771    |    Fitness desglosado: [0.0, 0.9941520467836257, 0.47368421052631576, 0.8465608465608465]    |    iteraciones totales: 13730    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 1711    |    Restricciones: 2.0
+
+[2019-11-04 22:35:29] [INFO   ] [ Ejecutando GVNS ] [ Caso4 ] [ Por 600 segundos ]
+[2019-11-04 22:45:29] [INFO   ] [Fin VNS] Fitness final: 0.9101127819548872    |    Fitness desglosado: [0.0, 0.9912280701754386, 0.47368421052631576, 0.8571428571428572]    |    iteraciones totales: 15107    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 1883    |    Restricciones: 3.0
+
+[2019-11-04 22:45:29] [INFO   ] [ Ejecutando SVNS ] [ Caso4 ] [ Por 600 segundos ]
+[2019-11-04 22:55:29] [INFO   ] [Fin VNS] Fitness final: 0.910187969924812    |    Fitness desglosado: [0.0, 0.9941520467836257, 0.47368421052631576, 0.8452380952380952]    |    iteraciones totales: 5373    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 9    |    Restricciones: 2.0
+
+[2019-11-04 22:55:29] [INFO   ] [ Ejecutando RVNS ] [ Caso5 ] [ Por 600 segundos ]
+[2019-11-04 23:05:29] [INFO   ] [Fin VNS] Fitness final: 0.9511492380315195    |    Fitness desglosado: [0.0, 0.9578858024691358, 0.9000000000000002, 0.6253345227475469]    |    iteraciones totales: 471765    |    porcentajeMejora: 0.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 20    |    Numero de reinicios: 58966    |    Restricciones: 15.161111111111111
+
+[2019-11-04 23:05:29] [INFO   ] [ Ejecutando BVNS ] [ Caso5 ] [ Por 600 segundos ]
+[2019-11-04 23:15:30] [INFO   ] [Fin VNS] Fitness final: 0.9650611061552186    |    Fitness desglosado: [0.0, 0.9944444444444445, 0.9000000000000002, 0.6926851025869759]    |    iteraciones totales: 4683    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 20    |    Numero de reinicios: 573    |    Restricciones: 2.0
+
+[2019-11-04 23:15:30] [INFO   ] [ Ejecutando GVNS ] [ Caso5 ] [ Por 600 segundos ]
+[2019-11-04 23:25:30] [INFO   ] [Fin VNS] Fitness final: 0.9660506244424621    |    Fitness desglosado: [0.0, 0.9916666666666667, 0.9000000000000002, 0.7216770740410348]    |    iteraciones totales: 4796    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 20    |    Numero de reinicios: 582    |    Restricciones: 3.0
+
+[2019-11-04 23:25:30] [INFO   ] [ Ejecutando SVNS ] [ Caso5 ] [ Por 600 segundos ]
+[2019-11-04 23:35:30] [INFO   ] [Fin VNS] Fitness final: 0.9618744424620875    |    Fitness desglosado: [0.0, 0.9861111111111112, 0.9000000000000002, 0.6770740410347904]    |    iteraciones totales: 4783    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 20    |    Numero de reinicios: 5    |    Restricciones: 5.0
+
+[2019-11-04 23:35:30] [INFO   ] [ Ejecutando RVNS ] [ Caso6 ] [ Por 600 segundos ]
+[2019-11-04 23:45:30] [INFO   ] [Fin VNS] Fitness final: 0.9419005847953216    |    Fitness desglosado: [0.0, 0.9678362573099415, 0.7894736842105261, 0.702729044834308]    |    iteraciones totales: 540540    |    porcentajeMejora: 0.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 67527    |    Restricciones: 11.0
+
+[2019-11-04 23:45:31] [INFO   ] [ Ejecutando BVNS ] [ Caso6 ] [ Por 600 segundos ]
+[2019-11-04 23:55:31] [INFO   ] [Fin VNS] Fitness final: 0.9471929824561404    |    Fitness desglosado: [0.0, 0.9824561403508771, 0.7894736842105261, 0.7251461988304093]    |    iteraciones totales: 4829    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 585    |    Restricciones: 6.0
+
+[2019-11-04 23:55:31] [INFO   ] [ Ejecutando GVNS ] [ Caso6 ] [ Por 600 segundos ]
+[2019-11-05 00:05:31] [INFO   ] [Fin VNS] Fitness final: 0.9454970760233917    |    Fitness desglosado: [0.0, 0.9707602339181286, 0.7894736842105261, 0.7495126705653021]    |    iteraciones totales: 4969    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 608    |    Restricciones: 10.0
+
+[2019-11-05 00:05:31] [INFO   ] [ Ejecutando SVNS ] [ Caso6 ] [ Por 600 segundos ]
+[2019-11-05 00:15:31] [INFO   ] [Fin VNS] Fitness final: 0.9391608187134501    |    Fitness desglosado: [0.0, 0.9675438596491227, 0.7894736842105261, 0.6583820662768032]    |    iteraciones totales: 4353    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 19    |    Numero de reinicios: 2    |    Restricciones: 11.1
+
+[2019-11-05 00:15:31] [INFO   ] [ Ejecutando RVNS ] [ Caso7 ] [ Por 600 segundos ]
+[2019-11-05 00:25:31] [INFO   ] [Fin VNS] Fitness final: 0.930983702111943    |    Fitness desglosado: [0.0, 0.9825273179703559, 0.6923076923076921, 0.6975862068965517]    |    iteraciones totales: 216899    |    porcentajeMejora: 0.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 26    |    Numero de reinicios: 27082    |    Restricciones: 8.177215189873419
+
+[2019-11-05 00:25:32] [INFO   ] [ Ejecutando BVNS ] [ Caso7 ] [ Por 600 segundos ]
+[2019-11-05 00:35:32] [INFO   ] [Fin VNS] Fitness final: 0.926608222811671    |    Fitness desglosado: [0.0, 0.9722222222222222, 0.6923076923076921, 0.6710344827586208]    |    iteraciones totales: 2806    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 26    |    Numero de reinicios: 333    |    Restricciones: 13.0
+
+[2019-11-05 00:35:32] [INFO   ] [ Ejecutando GVNS ] [ Caso7 ] [ Por 600 segundos ]
+[2019-11-05 00:45:32] [INFO   ] [Fin VNS] Fitness final: 0.9263338028405467    |    Fitness desglosado: [0.0, 0.967680947744239, 0.6923076923076921, 0.6868965517241379]    |    iteraciones totales: 2941    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 26    |    Numero de reinicios: 354    |    Restricciones: 15.125316455696202
+
+[2019-11-05 00:45:32] [INFO   ] [ Ejecutando SVNS ] [ Caso7 ] [ Por 600 segundos ]
+[2019-11-05 00:55:33] [INFO   ] [Fin VNS] Fitness final: 0.9105617004667093    |    Fitness desglosado: [0.0, 0.9281929568321974, 0.6923076923076921, 0.6017241379310345]    |    iteraciones totales: 3209    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 26    |    Numero de reinicios: 4    |    Restricciones: 33.60569620253165
+
+[2019-11-05 00:55:33] [INFO   ] [ Ejecutando RVNS ] [ Caso8 ] [ Por 600 segundos ]
+[2019-11-05 01:05:33] [INFO   ] [Fin VNS] Fitness final: 0.961861471861472    |    Fitness desglosado: [0.0, 0.9797979797979798, 0.9090909090909088, 0.6825396825396826]    |    iteraciones totales: 437672    |    porcentajeMejora: 0.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 22    |    Numero de reinicios: 54696    |    Restricciones: 8.0
+
+[2019-11-05 01:05:33] [INFO   ] [ Ejecutando BVNS ] [ Caso8 ] [ Por 600 segundos ]
+[2019-11-05 01:15:34] [INFO   ] [Fin VNS] Fitness final: 0.9641324903167009    |    Fitness desglosado: [0.0, 0.9873737373737373, 0.9090909090909088, 0.6862990810359231]    |    iteraciones totales: 4677    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 22    |    Numero de reinicios: 580    |    Restricciones: 5.0
+
+[2019-11-05 01:15:34] [INFO   ] [ Ejecutando GVNS ] [ Caso8 ] [ Por 600 segundos ]
+[2019-11-05 01:25:34] [INFO   ] [Fin VNS] Fitness final: 0.9643882433356118    |    Fitness desglosado: [0.0, 0.98989898989899, 0.9090909090909088, 0.6791979949874687]    |    iteraciones totales: 4749    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 22    |    Numero de reinicios: 591    |    Restricciones: 4.0
+
+[2019-11-05 01:25:34] [INFO   ] [ Ejecutando SVNS ] [ Caso8 ] [ Por 600 segundos ]
+[2019-11-05 01:35:34] [INFO   ] [Fin VNS] Fitness final: 0.9486097060833902    |    Fitness desglosado: [0.0, 0.9434343434343435, 0.9090909090909088, 0.62531328320802]    |    iteraciones totales: 5916    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 22    |    Numero de reinicios: 6    |    Restricciones: 22.4
+
+[2019-11-05 01:35:35] [INFO   ] [ Ejecutando RVNS ] [ Caso9 ] [ Por 600 segundos ]
+[2019-11-05 01:45:35] [INFO   ] [Fin VNS] Fitness final: 0.9641415123777825    |    Fitness desglosado: [0.0, 0.9878019323671497, 0.9130434782608692, 0.6746411483253589]    |    iteraciones totales: 384407    |    porcentajeMejora: 0.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 23    |    Numero de reinicios: 48034    |    Restricciones: 5.05
+
+[2019-11-05 01:45:35] [INFO   ] [ Ejecutando BVNS ] [ Caso9 ] [ Por 600 segundos ]
+[2019-11-05 01:55:35] [INFO   ] [Fin VNS] Fitness final: 0.9651913875598086    |    Fitness desglosado: [0.0, 0.9927536231884058, 0.9130434782608692, 0.6698564593301435]    |    iteraciones totales: 4152    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 23    |    Numero de reinicios: 512    |    Restricciones: 3.0
+
+[2019-11-05 01:55:35] [INFO   ] [ Ejecutando GVNS ] [ Caso9 ] [ Por 600 segundos ]
+[2019-11-05 02:05:35] [INFO   ] [Fin VNS] Fitness final: 0.9642396505096734    |    Fitness desglosado: [0.0, 0.9855072463768116, 0.9130434782608692, 0.6866028708133971]    |    iteraciones totales: 4184    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 23    |    Numero de reinicios: 516    |    Restricciones: 6.0
+
+[2019-11-05 02:05:36] [INFO   ] [ Ejecutando SVNS ] [ Caso9 ] [ Por 600 segundos ]
+[2019-11-05 02:15:36] [INFO   ] [Fin VNS] Fitness final: 0.9596867588932807    |    Fitness desglosado: [0.0, 0.9747584541062803, 0.9130434782608692, 0.6590909090909092]    |    iteraciones totales: 5614    |    porcentajeMejora: 100.0 de 0.035    |    tiempo: 600s de 600s    |    tamaño: 23    |    Numero de reinicios: 4    |    Restricciones: 10.450000000000001
