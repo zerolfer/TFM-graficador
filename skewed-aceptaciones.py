@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 df = pd.read_csv(
     "C:\\Users\\Administrador\\Documents\\Proyecto-Salomon\\resultados\\Caso1Id1m-01-01-2019\\VNS\\Trazas\\output1.csv",
     sep=';', skiprows=[0],

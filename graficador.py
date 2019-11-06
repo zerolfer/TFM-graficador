@@ -52,17 +52,17 @@ class GeneradorGraficas:
 
     def leer_datos(self, param, url, id_list):
         shift = param["start_id"]
-        num_iter_max = 0
+        num_iter_max = None
         plot_info = []
 
         for i in range(shift, len(id_list) + 1 + shift):
             df = self.inicializar_df(param, url, str(i))
             plot_info.append(df[param["column_to_plot"]])
 
-            if len(df['iteracion']) > num_iter_max:
-                num_iter_max = len(df['iteracion'])
+            if num_iter_max is None or df['iteracion'].iloc[-1] > num_iter_max.iloc[-1]:
+                num_iter_max = df['iteracion']
 
-        plot_info.append([i for i in range(0, num_iter_max)])  # componente 0 = eje X
+        plot_info.append(num_iter_max)  # componente 0 = eje X
         return plot_info
 
     # layout
