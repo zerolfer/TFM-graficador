@@ -17,7 +17,10 @@ class GeneradorGraficas:
 
     def execute(self):
         for url_params in self.urls_ficheros_propiedades:
-            param = yaml.load(open(url_params, 'r'), Loader=yaml.Loader)
+
+            with open(url_params, 'rt', encoding='utf8') as yml:
+                param = yaml.load(yml)
+
             print('LEIDO FICHERO PROPIEDADES ' + url_params)
 
             # crear el directorio de salida en caso de que no exista
@@ -27,8 +30,8 @@ class GeneradorGraficas:
                     os.makedirs(path)
 
             '''direccion URL base donde obtener los ficheros'''
-            for url, out in zip(param["input_base_url"], output_paths):
-                self.exportar(param, url, out)
+            for url, out, caso_name in zip(param["input_base_url"], output_paths, param["fig_subtitles"]):
+                self.exportar(param, url, out, caso_name)
 
     def inicializar_df(self, param, url, num_str):
         filename = param["input_name"] + num_str + '.csv'
@@ -52,28 +55,32 @@ class GeneradorGraficas:
 
     def leer_datos(self, param, url, id_list):
         shift = param["start_id"]
-        num_iter_max = None
+        # num_iter_max = None
         plot_info = []
+        X = []
 
         for i in range(shift, len(id_list) + 1 + shift):
             df = self.inicializar_df(param, url, str(i))
-            plot_info.append(df[param["column_to_plot"]])
+            plot_info.append(df[param["y_axis_variable"]])
 
-            if num_iter_max is None or df['iteracion'].iloc[-1] > num_iter_max.iloc[-1]:
-                num_iter_max = df['iteracion']
+            if "tiempo" in param["x_axis_variable"]:
+                df[param['x_axis_variable']] = df[param['x_axis_variable']] / 1000
+                # print("Flag tiempo activado")
 
-        plot_info.append(num_iter_max)  # componente 0 = eje X
-        return plot_info
+            X.append(df[param['x_axis_variable']] / 1000)
+
+        # plot_info.append(num_iter_max)  # componente 0 = eje X
+        return plot_info, X
 
     # layout
-    def create_layout(self, param):
+    def create_layout(self, param, caso_name):
         y_name = param["name_y_axis"]
         # noinspection PyUnresolvedReferences
         lay = go.Layout(
             paper_bgcolor='white',
             plot_bgcolor='white',
             legend_orientation="h",
-            title=dict(text=param["fig_title"], x=0.5, xanchor="center", y=0.9),
+            title=dict(text=param["fig_title"]+"<br><span style=\"font-size:14px;\">"+caso_name+"<span>", x=0.5, xanchor="center", y=0.9),
             xaxis=dict(showgrid=False, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
                        zeroline=True, zerolinecolor='lightgray', title_text='Iteraciones'),
             yaxis=dict(showgrid=True, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
@@ -85,27 +92,30 @@ class GeneradorGraficas:
 
         return lay
 
-    def add_lines(self, param, fig, valores, mejor_fitness, x):
+    def add_lines(self, param, fig, valores, mejor_fitness, X):
         p = param["parametro"]
-        for c, n in zip(mejor_fitness, valores):
+        for c, n, x in zip(mejor_fitness, valores, X):
             # noinspection PyUnresolvedReferences
             fig.add_trace(go.Scatter(x=x, y=c,
                                      # line=dict(
                                      # color='firebrick',
                                      # width=2
                                      # ),
+                                     connectgaps=True,
+                                     # stackgaps="interpolate",
+                                     mode='lines',
                                      name=p + str(n)))
 
-    def exportar(self, param, url, output_path):
+    def exportar(self, param, url, output_path, caso_name):
         valores = param["valores"]
-        plot_info = self.leer_datos(param, url, range(param["start_id"], param["start_id"] + len(valores) - 1))
+        plot_info, X = self.leer_datos(param, url, range(param["start_id"], param["start_id"] + len(valores) - 1))
 
         print('EXPORTANDO (' + output_path + ') ... ', end='')
         # Definir grafica
         # noinspection PyUnresolvedReferences
-        fig = go.Figure(layout=self.create_layout(param))
+        fig = go.Figure(layout=self.create_layout(param, caso_name))
 
-        self.add_lines(param, fig, valores, plot_info[:-1], plot_info[-1])
+        self.add_lines(param, fig, valores, plot_info, X)
 
         # Add range slider
         # noinspection PyUnresolvedReferences
