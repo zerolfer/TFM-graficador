@@ -19,7 +19,7 @@ class GeneradorGraficas:
         for url_params in self.urls_ficheros_propiedades:
 
             with open(url_params, 'rt', encoding='utf8') as yml:
-                param = yaml.load(yml)
+                param = yaml.load(yml, Loader=yaml.Loader)
 
             print('LEIDO FICHERO PROPIEDADES ' + url_params)
 
