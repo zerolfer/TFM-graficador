@@ -18,10 +18,10 @@ input_base_url: [ ejecuciones/entornos probabilisticos/2_6-11-2019/Caso1Id1m-01-
 
 # path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
-output_path: ../Graficas/tiempo/
+output_path: ../../../../../graficas/png/
 
 # nombre del fichero de salida
-fig_name: grafica_fitness_entornos_probabilisticos_tiempo
+fig_name: grafica_iteraciones
 
 
 # -- DATA:
@@ -29,15 +29,15 @@ fig_name: grafica_fitness_entornos_probabilisticos_tiempo
 # nombres de las columnas de los ficheros
 # no tienen por que corresponderse con las cabeceras
 # la columna 'iteracion' es obligatoria y debe aparecer con ese nombre
-column_names: ['iteracion', 'tiempo', 'fitness mejor',
+column_names: ['iteracion', 'tiempo', 'fitness actual',
                'fitness 1', 'fitness 2', 'fitness 3', 'fitness 4',
                'tamaño', 'porcentaje mejora', 'vecindad',
                "mejor fitness", "distancia"
 ]
 
 # posibles valores: ver "column_names"
-x_axis_variable: "tiempo"
-y_axis_variable: "fitness mejor"
+x_axis_variable: "iteracion"
+y_axis_variable: "fitness actual"
 
 # identificador de ejecucion inicial
 start_id: 1

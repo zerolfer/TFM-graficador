@@ -144,6 +144,8 @@ class GeneradorGraficas:
             if extension == "html":
                 py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=False)
             else:
+                scale = -1
+
                 # en el output estatico no queremos Slider en ningun caso
                 if param["show_slider"]:
                     fig.update_layout(
@@ -153,15 +155,20 @@ class GeneradorGraficas:
                             )
                         )  # , xaxis_domain=[0, 1]
                     )
-                    if extension == "eps":
-                        # LaTeX format
-                        fig.write_image(output_path + fig_name + ".eps", scale=7)
-                    elif extension == "png":
-                        # Static format
-                        fig.write_image(output_path + fig_name + ".png", scale=10)
-                    elif extension == "pdf":
-                        fig.write_image(output_path + fig_name + ".pdf", scale=7)
 
+                    # LaTeX format
+                    if extension == "eps":
+                        scale = 7
+
+                    # Static format
+                    elif extension == "png" or extension == "jpg":
+                        scale = 10
+                    elif extension == "pdf":
+                        scale = 7
+                    else:
+                        scale = 2  # valor por defecto
+
+                    fig.write_image(output_path + fig_name + "." + extension, scale=scale)
             print(extension + " ", end='')
 
         print('PROCESAMIENTO FINALIZADO\n')

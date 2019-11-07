@@ -1,7 +1,10 @@
 from graficador import GeneradorGraficas
 
 if __name__ == '__main__':
-    base = ['ejecuciones/entornos probabilisticos/2_6-11-2019/config.yaml']
+    base = [
+        'ejecuciones/entornos probabilisticos/2_6-11-2019/config-tiempo.yaml',
+        'ejecuciones/entornos probabilisticos/2_6-11-2019/config-iteraciones.yaml',
+    ]
 
     # url_fichero_propiedades = [
     # 'ejecuciones/analisis parametrico/SVNS/alphas/config.yaml',
