@@ -75,6 +75,8 @@ class GeneradorGraficas:
     # layout
     def create_layout(self, param, caso_name):
         y_name = param["name_y_axis"]
+        x_name = param["name_x_axis"]
+
         # noinspection PyUnresolvedReferences
         lay = go.Layout(
             paper_bgcolor='white',
@@ -125,11 +127,9 @@ class GeneradorGraficas:
             # Add range slider
             # noinspection PyUnresolvedReferences
             fig.update_layout(
-                xaxis=go.layout.XAxis(
-                    rangeslider=dict(
-                        visible=param["show_slider"]
-                    )
-                )  # , xaxis_domain=[0, 1]
+                xaxis_rangeslider=dict(
+                    visible=param["show_slider"]
+                )
             )
 
             # graficar
