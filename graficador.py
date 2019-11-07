@@ -7,6 +7,10 @@ import yaml
 
 
 class GeneradorGraficas:
+    """
+        Generador de gráficas simple.
+        Permite graficar a multiples formatos un conjunto dado de datos.
+    """
     urls_ficheros_propiedades = []
 
     def __init__(self, urls_ficheros_propiedades=("config.yaml")):
@@ -81,14 +85,33 @@ class GeneradorGraficas:
         lay = go.Layout(
             paper_bgcolor='white',
             plot_bgcolor='white',
+
             legend_orientation="h",
             title=dict(text=param["fig_title"] + "<br><span style=\"font-size:14px;\">" + caso_name + "<span>", x=0.5,
                        xanchor="center", y=0.9),
-            xaxis=dict(showgrid=False, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
-                       zeroline=True, zerolinecolor='lightgray', title_text='Iteraciones'),
-            yaxis=dict(showgrid=True, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
-                       zeroline=True, zerolinecolor='lightgray', title_text=y_name, range=[None, 1])
-            # tick0=0,dtick=0.05,
+            xaxis=go.layout.XAxis(
+                title=go.layout.xaxis.Title(
+                    text=x_name,
+                    # font=dict(
+                    #     family='Courier New, monospace',
+                    #     size=18,
+                    #     color='#7f7f7f'
+                    # )
+                ),
+                showgrid=False, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
+                zeroline=True, zerolinecolor='lightgray'
+            ),
+            yaxis=go.layout.YAxis(
+                title=go.layout.yaxis.Title(
+                    text=y_name,
+                    # font=dict(
+                    #     family='Courier New, monospace',
+                    #     size=18,
+                    #     color='#7f7f7f'
+                ),
+                showgrid=True, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
+                zeroline=True, zerolinecolor='lightgray', title_text=y_name, range=[None, 1]
+            )
         )
         lay.yaxis.zerolinecolor = 'lightgray'
         lay.yaxis.zeroline = True
@@ -116,12 +139,26 @@ class GeneradorGraficas:
 
         print('EXPORTANDO (' + output_path + ') ... ', end='')
         for extension in output_formats:
+
             line_width = output_formats[extension]
 
             # Definir grafica
             # noinspection PyUnresolvedReferences
             fig = go.Figure(layout=self.create_layout(param, caso_name))
 
+            if extension not in ["html"] and "limite_iteraciones_raster" in param:
+                if caso_name in param["limite_iteraciones_raster"]:
+                    limite = param["limite_iteraciones_raster"][caso_name]
+                else:
+                    limite = param["limite_iteraciones_raster"]["default"]
+
+                # counter = sum(1 for df in X if df.iloc[-1] > self.limite_iteraciones_raster)
+                counter = 0
+                for i, df in enumerate(X):
+                    if df.iloc[-1] > limite:
+                        X[i] = df.loc[:limite]
+                        counter += 1
+                if counter > len(X) // 2: print("[Warning: Demasiados truncamientos ({0}]".format(counter), end='')
             self.add_lines(param, fig, valores, plot_info, X, line_width)
 
             # Add range slider
@@ -144,31 +181,48 @@ class GeneradorGraficas:
             if extension == "html":
                 py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=False)
             else:
-                scale = -1
-
                 # en el output estatico no queremos Slider en ningun caso
                 if param["show_slider"]:
                     fig.update_layout(
-                        xaxis=go.layout.XAxis(
-                            rangeslider=dict(
-                                visible=False
-                            )
-                        )  # , xaxis_domain=[0, 1]
+                        xaxis_rangeslider=dict(
+                            visible=False
+                        )
                     )
 
-                    # LaTeX format
-                    if extension == "eps":
-                        scale = 7
+                fig.update_layout(
+                    xaxis_title="",
+                    legend_y=-0.13,
+                    annotations=[
+                        go.layout.Annotation(
+                            x=0.5,
+                            y=-0.12,
+                            showarrow=False,
+                            text=param["name_x_axis"],
+                            font_size=13,
+                            xref="paper",
+                            yref="paper"
+                        ), ])
 
-                    # Static format
-                    elif extension == "png" or extension == "jpg":
-                        scale = 10
-                    elif extension == "pdf":
-                        scale = 7
-                    else:
-                        scale = 2  # valor por defecto
+                # LaTeX format
+                if extension == "eps":
+                    scale = 7
 
-                    fig.write_image(output_path + fig_name + "." + extension, scale=scale)
+                # Static format
+                elif extension == "png" or extension == "jpg":
+                    # scale = 7
+                    scale = 5
+                elif extension == "pdf":
+                    scale = 7
+                else:
+                    scale = 2  # valor por defecto
+
+                fig.write_image(output_path + fig_name + "." + extension, scale=scale)
             print(extension + " ", end='')
 
         print('PROCESAMIENTO FINALIZADO\n')
+
+class ComparadorMultiplesGraficas:
+    """
+        Generador de gráficas múltiple.
+        Permite graficar varios conjuntos de datos en una interfaz HTML para su comparativa
+    """

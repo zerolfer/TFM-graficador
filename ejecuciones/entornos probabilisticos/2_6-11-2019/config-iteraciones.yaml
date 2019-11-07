@@ -67,3 +67,10 @@ fig_subtitles: [Caso 1,Caso 3,Caso 4,Caso 5,Caso 6,Caso 7,Caso 8,Caso 9]
 # Solo disponible en el formato de salida HTML
 show_slider: true
 
+## Tamaño maximo para el eje x de la gráfica
+# La entrada "default" indica el valor por defecto
+# las demás entradas deben tener el nombre y capitalización de ``fig_subtitles``
+# si este campo no se pone, entonces no se limita el valor maximo del eje X
+limite_iteraciones_raster:
+  default: 7000
+  Caso 4: 40000
