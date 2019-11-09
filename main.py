@@ -1,4 +1,4 @@
-from graficador import GeneradorGraficas
+from graficador import GeneradorGraficas, ComparadorMultiplesGraficas
 
 if __name__ == '__main__':
     base = [
@@ -6,25 +6,75 @@ if __name__ == '__main__':
         'ejecuciones/entornos probabilisticos/2_6-11-2019/config-iteraciones.yaml',
     ]
 
-    # url_fichero_propiedades = [
-    # 'ejecuciones/analisis parametrico/SVNS/alphas/config.yaml',
-    # 'ejecuciones/analisis parametrico/SVNS/alphas.parte2/config.yaml',
-    # "C:\Users\Administrador\Documents\Proyecto - Salomon\resultados\Caso1Id1m - 01 - 01 - 2019\VNS\Trazas",
-    # 'ejecuciones/analisis parametrico/SVNS/alphas.distanciaSlots/Caso1Id1m-01-01-2019/config.yaml',
-    # ]
-    # GeneradorGraficas(url_fichero_propiedades).execute()
-    GeneradorGraficas(base).execute(
-        {
-            # dynamic
-            "html":2,
+    # GeneradorGraficas(base).execute(
+    #     {
+    #         # dynamic
+    #         "html": 2,
+    #
+    #         # static raster
+    #         "png": 0.75,
+    #         # "jpg": 0.75,
+    #
+    #         # static vectorial
+    #         "pdf": 8,
+    #         # "eps": 8, # ??
+    #         # "svg":8
+    #     }
+    # )
 
-            # static raster
-            "png": 0.75,
-            # "jpg": 0.75,
+    url_parametros = [
+        [  ## PARÁMETRO 1: Tipo de Entornos
+            [  # Probabilísticos
 
-            # static vectorial
-            "pdf": 8,
-            # "eps": 8, # ??
-            # "svg":8
-        }
-    )
+                ## CONDICIÓN DE PARADA
+                [  # Tiempo (10 min)
+                    'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/config-tiempo.yaml',
+                    'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/config-iteraciones.yaml'
+                ]
+
+                # [  # Iteraciones sin mejora
+                #     'ejecuciones/entornos probabilisticos/2_6-11-2019/config-tiempo.yaml',  # Casos + tipos VNS
+                #     'ejecuciones/entornos probabilisticos/2_6-11-2019/config-iteraciones.yaml'
+                # ]
+
+            ],
+            # [  # Deterministas
+            #
+            #     ## CONDICIÓN DE PARADA
+            #     [  # Tiempo (10 min)
+            #         'ejecuciones/tipo entornos/deterministas/condicion-parada-tiempo/config-tiempo.yaml',
+            #         'ejecuciones/tipo entornos/deterministas/condicion-parada-tiempo/config-iteraciones.yaml'
+            #     ]
+            #
+            #     # [  # Iteraciones sin mejora
+            #     #     'ejecuciones/entornos probabilisticos/2_6-11-2019/config-tiempo.yaml',  # Casos + tipos VNS
+            #     #     'ejecuciones/entornos probabilisticos/2_6-11-2019/config-iteraciones.yaml'
+            #     # ]
+            #
+            # ]
+        ],  # Fin Tipo de Entornos
+
+        # [  ## PARÁMETRO 2: ...
+        #     [  # Valor A
+        #
+        #         ## CONDICIÓN DE PARADA
+        #         [  # Tiempo (10 min)
+        #             'ejecuciones/entornos probabilisticos/2_6-11-2019/config-tiempo.yaml',  # Casos + tipos VNS
+        #             'ejecuciones/entornos probabilisticos/2_6-11-2019/config-iteraciones.yaml'
+        #         ]
+        #
+        #         # [  # Iteraciones sin mejora
+        #         #     'ejecuciones/entornos probabilisticos/2_6-11-2019/config-tiempo.yaml',  # Casos + tipos VNS
+        #         #     'ejecuciones/entornos probabilisticos/2_6-11-2019/config-iteraciones.yaml'
+        #         # ]
+        #
+        #     ],
+        #     [  # Valor B
+        #
+        #     ]
+        # ]  # Fin parametro 2
+
+    ]
+
+    output_path='ejecuciones/'
+    ComparadorMultiplesGraficas(url_parametros).execute(output_path)
