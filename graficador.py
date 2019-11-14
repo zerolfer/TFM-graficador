@@ -4,6 +4,18 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly as py
 import yaml
+import plotly.tools as tls
+
+
+def modify_HTML_for_embedding(url_file):
+    """Con este metodo adaptamos el HTML para empotrarlo"""
+    with open(url_file, 'r', encoding='utf8') as html:
+        data = html.readlines()
+
+    data[3] = "    <div style=\"height: 90vh; width: 90vw\">\n"
+
+    with open(url_file, 'w') as html:
+        html.writelines(data)
 
 
 class GeneradorGraficas:
@@ -28,10 +40,17 @@ class GeneradorGraficas:
             print('LEIDO FICHERO PROPIEDADES ' + url_params)
 
             # crear el directorio de salida en caso de que no exista
-            output_paths = [base + param["output_path"] for base in param["input_base_url"]]
-            for path in output_paths:
-                if not os.path.exists(path):
-                    os.makedirs(path)
+            if param["output_path_absolute"]:
+                output_paths = [param["output_path"]] * len(param["input_base_url"])
+                if not os.path.exists(param["output_path"]):
+                    os.makedirs(param["output_path"])
+
+            else:
+                output_paths = [base + param["output_path"] for base in param["input_base_url"]]
+
+                for path in output_paths:
+                    if not os.path.exists(path):
+                        os.makedirs(path)
 
             '''direccion URL base donde obtener los ficheros'''
             for url, out, caso_name in zip(param["input_base_url"], output_paths, param["fig_subtitles"]):
@@ -61,27 +80,24 @@ class GeneradorGraficas:
         shift = param["start_id"]
         # num_iter_max = None
         plot_info = []
-        X = []
+        X = [[] for __ in range(len(param["x_axis_variable"]))]
 
         for i in range(shift, len(id_list) + 1 + shift):
             df = self.inicializar_df(param, url, str(i))
             plot_info.append(df[param["y_axis_variable"]])
 
-            if "tiempo" in param["x_axis_variable"]:
-                df[param['x_axis_variable']] = df[param['x_axis_variable']] / 1000
-                # print("Flag tiempo activado")
-
-            X.append(df[param['x_axis_variable']])
+            for x_idx, x_var in enumerate(param["x_axis_variable"]):
+                if "tiempo" in x_var:
+                    df[x_var] = df[x_var] / 1000  # lo convertimos a segundos
+                X[x_idx].append(df[x_var])
 
         # plot_info.append(num_iter_max)  # componente 0 = eje X
         return plot_info, X
 
     # layout
-    def create_layout(self, param, caso_name):
+    def create_layout(self, param, caso_name, x_name):
         y_name = param["name_y_axis"]
-        x_name = param["name_x_axis"]
 
-        # noinspection PyUnresolvedReferences
         lay = go.Layout(
             paper_bgcolor='white',
             plot_bgcolor='white',
@@ -135,270 +151,112 @@ class GeneradorGraficas:
 
     def exportar(self, param, url, output_path, caso_name, output_formats):
         valores = param["valores"]
+
         plot_info, X = self.leer_datos(param, url, range(param["start_id"], param["start_id"] + len(valores) - 1))
 
-        print('EXPORTANDO (' + output_path + ') ... ', end='')
-        for extension in output_formats:
+        for x_idx, x_axis_variable in enumerate(param["x_axis_variable"]):
 
-            line_width = output_formats[extension]
+            fig_name = '{0}_{1}'.format(caso_name.replace(" ", ""), x_axis_variable)
 
-            # Definir grafica
-            # noinspection PyUnresolvedReferences
-            fig = go.Figure(layout=self.create_layout(param, caso_name))
+            print('EXPORTANDO\t[{1}]\t({0})\t...\t'.format(output_path, x_axis_variable), end='')
+            for extension in output_formats:
 
-            if extension not in ["html"] and "limite_iteraciones_raster" in param:
-                if caso_name in param["limite_iteraciones_raster"]:
-                    limite = param["limite_iteraciones_raster"][caso_name]
+                line_width = output_formats[extension]
+
+                # Definir grafica
+                # noinspection PyUnresolvedReferences
+                fig = go.Figure(layout=self.create_layout(param, caso_name, x_axis_variable))
+
+                if "limite_iteraciones_raster" in param:
+                    if caso_name in param["limite_iteraciones_raster"]:
+                        limite = param["limite_iteraciones_raster"][caso_name]
+                    else:
+                        limite = param["limite_iteraciones_raster"]["default"]
+
+                    if extension not in ["html"]:
+                        if limite <= X[x_idx][-1]:
+                            # counter = sum(1 for df in X if df.iloc[-1] > self.limite_iteraciones_raster)
+                            counter = 0
+                            for i, df in enumerate(X[x_idx]):
+                                if df.iloc[-1] > limite:
+                                    X[x_idx][i] = df.loc[:limite]
+                                    counter += 1
+                            if counter > len(X[x_idx]) // 2:
+                                print("[Warning: Demasiados truncamientos ({0}]".format(counter), end='')
+                    else:  # if HTML:
+                        if not self.range_setted(X, fig, limite, param, x_idx):
+                            # En este punto no se ha ejecutado lo del slider
+                            fig.update_layout(
+                                xaxis_rangeslider=dict(
+                                    visible=param["show_slider"]
+                                )
+                            )
+
+                self.add_lines(param, fig, valores, plot_info, X[x_idx], line_width)
+
+                # fig.show(renderer='browser', scale=1.25, width=800,
+                #          height=500)  # default size: width=700, height=450, scale=None
+                # fig.show(renderer='notebook', scale=1.25,  width=800, height=500) # default size: width=700, height=450, scale=None
+
+                # Dynamic format
+                if extension == "html":
+                    py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=False)
+                    modify_HTML_for_embedding("{0}{1}.{2}".format(output_path, fig_name, extension))
+
                 else:
-                    limite = param["limite_iteraciones_raster"]["default"]
+                    # # en el output estatico no queremos Slider en ningun caso
+                    # if param["show_slider"]:
+                    #     fig.update_layout(
+                    #         xaxis_rangeslider=dict(
+                    #             visible=False
+                    #         )
+                    #     )
 
-                # counter = sum(1 for df in X if df.iloc[-1] > self.limite_iteraciones_raster)
-                counter = 0
-                for i, df in enumerate(X):
-                    if df.iloc[-1] > limite:
-                        X[i] = df.loc[:limite]
-                        counter += 1
-                if counter > len(X) // 2: print("[Warning: Demasiados truncamientos ({0}]".format(counter), end='')
-            self.add_lines(param, fig, valores, plot_info, X, line_width)
-
-            # Add range slider
-            fig.update_layout(
-                xaxis_rangeslider=dict(
-                    visible=param["show_slider"]
-                )
-            )
-
-            # graficar
-
-            fig_name = caso_name + " - " + param["fig_name"]
-
-            # fig.show(renderer='browser', scale=1.25, width=800,
-            #          height=500)  # default size: width=700, height=450, scale=None
-            # fig.show(renderer='notebook', scale=1.25,  width=800, height=500) # default size: width=700, height=450, scale=None
-
-            # Dynamic format
-            if extension == "html":
-                py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=False)
-            else:
-                # en el output estatico no queremos Slider en ningun caso
-                if param["show_slider"]:
                     fig.update_layout(
-                        xaxis_rangeslider=dict(
-                            visible=False
-                        )
-                    )
+                        xaxis_title="",
+                        legend_y=-0.13,
+                        annotations=[
+                            go.layout.Annotation(
+                                x=0.5,
+                                y=-0.12,
+                                showarrow=False,
+                                text=param["name_x_axis"],
+                                font_size=13,
+                                xref="paper",
+                                yref="paper"
+                            ), ])
 
+                    # LaTeX format
+                    if extension == "eps":
+                        scale = 7
+
+                    # Static format
+                    elif extension == "png" or extension == "jpg":
+                        # scale = 7
+                        scale = 5
+                    elif extension == "pdf":
+                        scale = 7
+                    else:
+                        scale = 2  # valor por defecto
+
+                    fig.write_image("{0}{1}.{2}".format(output_path, fig_name, extension), scale=scale)
+
+                print(extension + " ", end='')
+
+            print('PROCESAMIENTO FINALIZADO')
+        print()
+
+    def range_setted(self, X, fig, limite, param, x_idx):
+        for i, df in enumerate(X[x_idx]):
+            if df.iloc[-1] > limite:
                 fig.update_layout(
-                    xaxis_title="",
-                    legend_y=-0.13,
-                    annotations=[
-                        go.layout.Annotation(
-                            x=0.5,
-                            y=-0.12,
-                            showarrow=False,
-                            text=param["name_x_axis"],
-                            font_size=13,
-                            xref="paper",
-                            yref="paper"
-                        ), ])
+                    xaxis=dict(
+                        # autorange=False,
+                        rangeslider=dict(
+                            range=[int(0), limite],
+                            visible=param["show_slider"]
+                        ))
 
-                # LaTeX format
-                if extension == "eps":
-                    scale = 7
-
-                # Static format
-                elif extension == "png" or extension == "jpg":
-                    # scale = 7
-                    scale = 5
-                elif extension == "pdf":
-                    scale = 7
-                else:
-                    scale = 2  # valor por defecto
-
-                fig.write_image(output_path + fig_name + "." + extension, scale=scale)
-            print(extension + " ", end='')
-
-        print('PROCESAMIENTO FINALIZADO\n')
-
-
-class ComparadorMultiplesGraficas:
-    """
-        Generador de gráficas múltiple.
-        Permite graficar varios conjuntos de datos en una interfaz HTML para su comparativa
-    """
-
-    urls_parametros = []
-    map_indexes = {}
-
-    def __init__(self, urls_parametros=("config.yaml")):
-        # if not urls_ficheros_propiedades:
-        #     self.urls_ficheros_propiedades = ["config.yaml"]  # por defecto se utiliza el fichero raiz
-        # else:
-        self.urls_parametros.extend(urls_parametros)
-
-    def execute(self, output_path, fig_name="Comparador de Graficas"):
-
-        print('CARGANDO DATOS ... '.format(output_path))
-
-        fig, indices = self.cargar_graficas()
-
-        self.add_interactivity_to_layout(fig, indices)  # TODO method
-
-        if not os.path.exists(output_path):
-            os.makedirs(output_path)
-
-        print('EXPORTANDO en {0} ... '.format(output_path))
-        py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=False)
-
-        print('PROCESAMIENTO FINALIZADO ({0}.html) ... '.format(output_path + fig_name))
-
-    def cargar_graficas(self):
-
-        fig = go.Figure(layout=self.create_layout())
-        indices = [[[[{"indices": []}]]]]
-        # len(self.urls_parametros) * [
-        #     len(self.urls_parametros[0]condiciones_parada) * [
-        #         len(valor_condicion_parada) * [
-        #             len(variable_eje_x) * []
-        #         ]
-        #     ]
-        # ]
-        # ]  # TODO: meter aqui los indices y tambien los 'param'
-
-        contador = 0
-        # indices.append([0])
-        for i1, parametro in enumerate(self.urls_parametros):
-            # if i1 > 0: indices[i1].append([])
-            for i2, condiciones_parada in enumerate(parametro):
-                if i2 > 0: indices[i1].append([])
-                for i3, valor_condicion_parada in enumerate(condiciones_parada):
-                    if i3 > 0: indices[i1][i2].append([])
-                    for i4, variable_eje_x in enumerate(valor_condicion_parada):
-                        if i4 > 0: indices[i1][i2][i3].append({"indices": []})
-                        param = self.inicializar_yaml(variable_eje_x)
-                        for i5, caso in enumerate(param["input_base_url"]):
-                            # if i5 > 0: indices[i1][i2][i3][i4]["indices"].append([])
-
-                            plot_info, X, contador = self.leer_datos(param, caso, contador)
-
-                            self.add_lines(param, fig, param["valores"], plot_info, X)
-
-                            indices[i1][i2][i3][i4]["indices"].append(contador)
-                        indices[i1][i2][i3][i4]["param"] = param
-
-                        if len(valor_condicion_parada) > 1: print('\t|')
-                    if len(condiciones_parada) > 1: print('\n')
-                if len(parametro) > 1: print("\n\n")
-            if len(self.urls_parametros) > 1: print("\n\n\n")
-        return fig, indices
-
-    def create_layout(self):
-
-        # noinspection PyUnresolvedReferences
-        lay = go.Layout(
-            paper_bgcolor='white',
-            plot_bgcolor='white',
-
-            legend_orientation="h",
-            title=dict(text="fig_title", x=0.5, xanchor="center", y=0.9),
-            xaxis=go.layout.XAxis(
-                showgrid=False, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
-                zeroline=True, zerolinecolor='lightgray'
-            ),
-            yaxis=go.layout.YAxis(
-                showgrid=True, gridwidth=1, gridcolor='lightgray', zerolinewidth=1,
-                zeroline=True, zerolinecolor='lightgray', range=[None, 1]
-            ),
-            xaxis_rangeslider=dict(
-                visible=True
-            )
-        )
-        lay.yaxis.zerolinecolor = 'lightgray'
-        lay.yaxis.zeroline = True
-
-        return lay
-
-    def inicializar_yaml(self, url_params):
-
-        with open(url_params, 'rt', encoding='utf8') as yml:
-            param = yaml.load(yml, Loader=yaml.Loader)
-
-        print('\t| LEIDO FICHERO PROPIEDADES ' + url_params)
-
-        # '''direccion URL base donde obtener los ficheros'''
-        # for url, out, caso_name in zip(param["input_base_url"], output_paths, param["fig_subtitles"]):
-        #     self.exportar(param, url, out, caso_name, output_formats)
-        return param
-
-    def add_lines(self, param, fig, valores, plot_info, X):
-        p = param["parametro"]
-        for c, n, x in zip(plot_info, valores, X):
-            # noinspection PyUnresolvedReferences
-            fig.add_trace(go.Scatter(x=x, y=c,
-                                     connectgaps=True,  # para conectar los puntos separados
-                                     # stackgaps="interpolate",
-                                     mode='lines',
-                                     name=p + str(n)))
-
-    def leer_datos(self, param, url, contador):
-
-        id_list = range(param["start_id"], param["start_id"] + len(param["valores"]) - 1)
-        shift = param["start_id"]
-
-        # num_iter_max = None
-        plot_info = []
-        X = []
-
-        for i in range(shift, len(id_list) + 1 + shift):
-            df = self.inicializar_df(param, url, str(i))
-            plot_info.append(df[param["y_axis_variable"]])
-
-            if "tiempo" in param["x_axis_variable"]:
-                df[param['x_axis_variable']] = df[param['x_axis_variable']] / 1000
-
-            X.append(df[param['x_axis_variable']])
-            contador += 1
-
-        # plot_info.append(num_iter_max)  # componente 0 = eje X
-        return plot_info, X, contador
-
-    def inicializar_df(self, param, url, num_str):
-        filename = param["input_name"] + num_str + '.csv'
-        df = pd.read_csv(url + filename, sep=';', names=param["column_names"], skiprows=[0])
-        print('\t|\t| DATOS LEIDOS DE ' + url + filename)
-        return df
-
-    def add_interactivity_to_layout(self, fig, indices):
-        fig.update_layout(
-            updatemenus=[
-                go.layout.Updatemenu(
-                    type="buttons",
-                    direction="right",
-                    active=0,
-                    x=0.57,
-                    y=1.2,
-                    buttons=list([
-                        dict(label="None",
-                             method="update",
-                             args=[{"visible": [True, False, True, False]}, # TODO: completar
-                                   {"title": "Yahoo",
-                                    "annotations": []}]),
-                        dict(label="High",
-                             method="update",
-                             args=[{"visible": [True, True, False, False]},
-                                   {"title": "Yahoo High",
-                                    "annotations": []}]),
-                        dict(label="Low",
-                             method="update",
-                             args=[{"visible": [False, False, True, True]},
-                                   {"title": "Yahoo Low",
-                                    "annotations": []}]),
-                        dict(label="Both",
-                             method="update",
-                             args=[{"visible": [True, True, True, True]},
-                                   {"title": "Yahoo",
-                                    "annotations": []}]),
-                    ]),
                 )
-            ]
-        )
+                return True
+        return False

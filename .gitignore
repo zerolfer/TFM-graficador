@@ -1,5 +1,12 @@
 .idea/
-graficas/
 __pycache__/
 *~$4 *
 .ipynb_checkpoints/
+*.txt
+*.rar
+*.xlsx
+*.csv
+ejecuciones/graficas/
+*.eps
+*.html
+*.png

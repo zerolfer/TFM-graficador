@@ -18,7 +18,7 @@ input_base_url: [ ejecuciones/entornos probabilisticos/2_6-11-2019/Caso1Id1m-01-
 
 # path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
-output_path: ../../../../../graficas/tiempo/
+output_path: ../../../../../graficas/
 
 # nombre del fichero de salida
 fig_name: grafica_tiempo
