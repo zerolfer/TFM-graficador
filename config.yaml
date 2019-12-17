@@ -1,3 +1,4 @@
+---
 ##############################################
 ##    Fichero de propiedades por defecto    ##
 ##############################################
@@ -7,21 +8,41 @@ input_name: output
 
 # Direccion URL a la que se ha de buscar los csv
 # IMPORTANTE: Debe terminar con una barra (\ o /)
-input_base_url: C:\Users\Administrador\Documents\Proyecto-Salomon\resultados\Caso1Id1m-01-01-2019\VNS\Trazas\
+input_base_url: [ ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso1Id1m-01-01-2019/VNS/Trazas/,
+                  ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso3Id2m-01-01-2019/VNS/Trazas/,
+                  ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso4Id3t-16-01-2019/VNS/Trazas/,
+                  ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso5Id5t-16-01-2019/VNS/Trazas/,
+                  ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso6Id4t-14-01-2019/VNS/Trazas/,
+                  ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso7Id6t-19-10-2018/VNS/Trazas/,
+                  ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso8Id0m-13-09-2018/VNS/Trazas/,
+                  ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/Caso9Id1m-13-09-2018/VNS/Trazas/ ]
 
-# path RELATIVO a *input_base_url* donde almacenar las gráficas de salida
+# True para indicar que el path indicado en ``output_path`` es absoluto
+# False para relativo a *input_base_url*
+output_path_absolute: True
+
+# path RELATIVO o ABSOLUTO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
-output_path: ../Graficas/
+output_path: graficas/tipo_entornos/probabilisticos/
 
 # nombre del fichero de salida
-fig_name: grafica_alphas_distanciaSlots
+fig_name: grafica_iteraciones
 
 
 # -- DATA:
 
-# posibles valores: 'iteracion', 'tiempo (ms)', 'fitness mejor', 'tamaño', 'numIterSinMejora',
-#  'vecindad', 'fitness sol actual', 'fitness BL', 'distancia'
-column_to_plot: "fitness mejor"
+# nombres de las columnas de los ficheros
+# no tienen por que corresponderse con las cabeceras
+# la columna 'iteracion' es obligatoria y debe aparecer con ese nombre
+column_names: ['iteracion', 'tiempo', 'fitness actual',
+               'fitness 1', 'fitness 2', 'fitness 3', 'fitness 4',
+               'tamaño', 'porcentaje mejora', 'vecindad',
+               "mejor fitness", "distancia"
+]
+
+# posibles valores: ver "column_names"
+x_axis_variable: ["iteracion", "tiempo"]
+y_axis_variable: "fitness actual"
 
 # identificador de ejecucion inicial
 start_id: 1
@@ -31,10 +52,10 @@ start_id: 1
 ## representa el significado de cada fichero:
 
 # string a anteponer al valor de cada ejecución en la leyenda de la gráfica
-parametro: "\u03B1 = "
+parametro: ""
 
 # lista de valores de cada ejecucion ordenada por id de la misma
-valores: [0.5, 1, 2, 5, 10, 15, 20, 30, 40, 50]
+valores: [VND, RVNS, BVNS, GVNS, SVNS]
 
 
 # -- APPEARANCE:
@@ -42,10 +63,19 @@ valores: [0.5, 1, 2, 5, 10, 15, 20, 30, 40, 50]
 
 # etiqueta para el eje Y
 name_y_axis: Fitness
+name_x_axis: [Iteraciones, Tiempo (s)]
 
-fig_title: "Fitness e iteraciones SVNS por 10 minutos usando diferentes valores de \u03B1"
+fig_title: "Ejecución por 10 minutos con entornos probabilísticos"
+fig_subtitles: [Caso 1,Caso 3,Caso 4,Caso 5,Caso 6,Caso 7,Caso 8,Caso 9]
 
 ## Decide si mostrar o no el Slider dinamico.
 # Solo disponible en el formato de salida HTML
 show_slider: true
 
+## Tamaño maximo para el eje x de la gráfica
+# La entrada "default" indica el valor por defecto
+# las demás entradas deben tener el nombre y capitalización de ``fig_subtitles``
+# si este campo no se pone, entonces no se limita el valor maximo del eje X
+limite_iteraciones_raster:
+  default: 7000
+  Caso 4: 40000

@@ -15,6 +15,7 @@ def cargar_ejecuciones(path):
 def procesar_medias(dfs):
     lista = []
     for df in dfs:
+        df.loc[df['fitness 1'] <= 0.0, 'fitness 1'] = 1
         lista.append(df.iloc[-1])
     df_concat = pd.DataFrame(data=lista, index=range(0, len(lista)))
     return df_concat.mean()
