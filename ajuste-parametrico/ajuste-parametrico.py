@@ -75,7 +75,7 @@ def dibujar_datos(datos, out_path, file_name, figure_title="", multiple=True):
     plt.show()
 
 
-def ajuste_parametrico(base_path, sub_paths, out_path, parametro):
+def ajuste_parametrico(base_path, sub_paths, out_path, parametro, *args):
 
     # if sub_paths is "":
     #     sub_paths=get_subpaths(base_path, key=sub_paths_type)
@@ -91,8 +91,27 @@ def ajuste_parametrico(base_path, sub_paths, out_path, parametro):
     datos.to_csv(out_path + parametro + ".csv", sep=";", encoding="UTF-8")
 
     # REPRESENTAR GRAFICAMENTE
-    dibujar_datos(datos, out_path, file_name="Datos no ordenados", figure_title=parametro, multiple=False)
-    dibujar_datos(datos_ordenados, out_path, figure_title=parametro, file_name="Datos ordenados por mejor fitness")
+    if args:
+        for plotter in args:
+            if plotter["ordenados"]:
+                datos_empleados = datos_ordenados
+                nombre = "Datos ordenados"
+            else:
+                datos_empleados = datos
+            nombre = "Datos no ordenados"
+
+            if plotter["multiple"]:
+                multiple_empleado = True
+                nombre = nombre + " multiple"
+            else:
+                multiple_empleado = False
+
+            dibujar_datos(datos_empleados, out_path, file_name=nombre, figure_title=parametro,
+                          multiple=multiple_empleado)
+    else:
+        dibujar_datos(datos, out_path, file_name="Datos no ordenados", figure_title=parametro, multiple=False)
+        # dibujar_datos(datos, out_path, file_name="Datos no ordenados multiple", figure_title=parametro, multiple=True)
+        dibujar_datos(datos_ordenados, out_path, figure_title=parametro, file_name="Datos ordenados por mejor fitness")
 
 def get_subpaths(path, key=str.lower):
     return sorted(next(walk(path))[1], key=key)
