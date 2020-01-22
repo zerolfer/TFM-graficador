@@ -74,7 +74,6 @@ def dibujar_datos(datos, out_path, file_name, figure_title="", multiple=True):
     plt.savefig(out_path + str(file_name) + "_lines.png", dpi=150)
     plt.show()
 
-
 def ajuste_parametrico(base_path, sub_paths, out_path, parametro, *args):
 
     # if sub_paths is "":

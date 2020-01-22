@@ -2,7 +2,8 @@ from graficador import GeneradorGraficas
 
 if __name__ == '__main__':
     base = [
-        'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/config.yaml',
+        # 'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/config.yaml',
+        'ejecuciones/uso-entornos/config.yaml',
     ]
 
     GeneradorGraficas(base).execute(
