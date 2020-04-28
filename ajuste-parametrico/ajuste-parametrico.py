@@ -19,7 +19,13 @@ def procesar_medias(dfs):
         df.loc[df['fitness 1'] <= 0.0, 'fitness 1'] = 1
         lista.append(df.iloc[-1]) # Tomamos el último valor del df actual
     df_concat = pd.DataFrame(data=lista, index=range(0, len(lista)))
-    return df_concat.mean()
+
+    mean_serie = df_concat.mean()
+    std_serie = df_concat.std(axis=0, skipna=True)[
+        # elegimos las columnas que queremos mostrar
+        ['iteracion', 'tiempo (ms)', 'fitness total', 'tamaño', 'restricciones incumplidas']
+    ].rename(lambda x: 'std. ' + x)
+    return pd.concat([mean_serie, std_serie], axis=0)
 
 
 def calcular_datos(base_path, sub_paths, sort_criteria='fitness total'):
@@ -115,3 +121,13 @@ def ajuste_parametrico(base_path, sub_paths, out_path, parametro, sort_criteria=
 
 def get_subpaths(path, key=str.lower):
     return sorted(next(walk(path))[1], key=key)
+
+
+
+# # -300, 72, 1016
+# BASE_URL = "C:\\Users\\GL753V\\Documents\\Projects\\TFM-graficador\\ejecuciones\\ajuste-parametrico\\caso6\\primera-iteracion\\"
+# base_path = BASE_URL + "1-TipoVNS"
+# sub_paths = ["VND", "RVNS", "BVNS", "GVNS", "SVNS-optimo"]
+# parametro="Tipo VNS"
+# out_path="1-3 "+parametro+"/"
+# ajuste_parametrico(base_path, sub_paths, out_path, parametro)
