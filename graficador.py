@@ -53,6 +53,9 @@ class GeneradorGraficas:
                         os.makedirs(path)
 
             '''direccion URL base donde obtener los ficheros'''
+            if len(param["fig_subtitles"]) != len(param["input_base_url"]):
+                exit("INPUT FATAL ERROR AT " + url_params +
+                     ": La longitud de los casos y el número de ficheros de entrada no concuerda")
             for url, out, caso_name in zip(param["input_base_url"], output_paths, param["fig_subtitles"]):
                 self.exportar(param, url, out, caso_name, output_formats)
 
@@ -156,7 +159,7 @@ class GeneradorGraficas:
 
         for x_idx, x_axis_variable in enumerate(param["x_axis_variable"]):
 
-            fig_name = '{0}_{1}'.format(caso_name.replace(" ", ""), x_axis_variable)
+            fig_name = '{0}_{1}_{2}'.format(caso_name.replace(" ", ""), param['fig_name'], x_axis_variable)
 
             print('EXPORTANDO\t[{1}]\t({0})\t...\t'.format(output_path, x_axis_variable), end='')
             for extension in output_formats:
@@ -192,6 +195,13 @@ class GeneradorGraficas:
                                 )
                             )
 
+                elif extension in ["html"]:
+                    fig.update_layout(
+                        xaxis_rangeslider=dict(
+                            visible=param["show_slider"]
+                        )
+                    )
+
                 self.add_lines(param, fig, valores, plot_info, X[x_idx], line_width)
 
                 # fig.show(renderer='browser', scale=1.25, width=800,
@@ -220,7 +230,7 @@ class GeneradorGraficas:
                                 x=0.5,
                                 y=-0.12,
                                 showarrow=False,
-                                text=param["name_x_axis"],
+                                text=x_axis_variable,
                                 font_size=13,
                                 xref="paper",
                                 yref="paper"
