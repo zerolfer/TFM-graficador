@@ -34,10 +34,12 @@ class GeneradorGraficas:
     def execute(self, output_formats):
         for url_params in self.urls_ficheros_propiedades:
 
+            print('LEYENDO FICHERO PROPIEDADES ' + url_params + ' ... ', end='')
+
             with open(url_params, 'rt', encoding='utf8') as yml:
                 param = yaml.load(yml, Loader=yaml.Loader)
 
-            print('LEIDO FICHERO PROPIEDADES ' + url_params)
+            print('LEÍDO')
 
             # crear el directorio de salida en caso de que no exista
             if param["output_path_absolute"]:
@@ -243,7 +245,7 @@ class GeneradorGraficas:
                     # Static format
                     elif extension == "png" or extension == "jpg":
                         # scale = 7
-                        scale = 5
+                        scale = 3
                     elif extension == "pdf":
                         scale = 7
                     else:
@@ -257,7 +259,7 @@ class GeneradorGraficas:
         print()
 
     def range_setted(self, X, fig, limite, param, x_idx):
-        for i, df in enumerate(X[x_idx]):
+        for df in X[x_idx]:
             if df.iloc[-1] > limite:
                 fig.update_layout(
                     xaxis=dict(

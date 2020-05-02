@@ -1,14 +1,15 @@
 import pandas as pd
 from os import listdir, path, makedirs, walk
+from sys import exit
 import matplotlib.pyplot as plt
 from IPython.display import display
 
 
-def cargar_ejecuciones(path):
+def cargar_ejecuciones(full_path):
     dfs = []
-    for ejecucion in listdir(path):
+    for ejecucion in listdir(full_path):
         if "log" not in ejecucion:
-            df = pd.read_csv(path + "\\" + ejecucion, sep=';', encoding="utf-8")
+            df = pd.read_csv(full_path + "\\" + ejecucion, sep=';', encoding="utf-8")
             dfs.append(df)
     return dfs
 
@@ -17,7 +18,7 @@ def procesar_medias(dfs):
     lista = []
     for df in dfs:
         df.loc[df['fitness 1'] <= 0.0, 'fitness 1'] = 1
-        lista.append(df.iloc[-1]) # Tomamos el último valor del df actual
+        lista.append(df.iloc[-1])  # Tomamos el último valor del df actual
     df_concat = pd.DataFrame(data=lista, index=range(0, len(lista)))
 
     mean_serie = df_concat.mean()
@@ -62,12 +63,12 @@ def dibujar_datos(datos, out_path, file_name, figure_title="", multiple=True):
             if min < low: low = min
             if max > high: high = max
 
-    multiplicador=0.01
-    if not multiple: multiplicador=0.01
+    multiplicador = 0.01
+    if not multiple: multiplicador = 0.01
 
     for p in ax.patches:
         ax.annotate(str(round(p.get_height(), 3)),
-                    (p.get_x() * 1.0005, p.get_height() + (high-low)*multiplicador))
+                    (p.get_x() * 1.0005, p.get_height() + (high - low) * multiplicador))
 
     plt.legend(loc='lower left', bbox_to_anchor=(1.0, 0.0))
     plt.ylim([low - 0.1 * (high - low), high + 0.1 * (high - low)])
@@ -81,8 +82,8 @@ def dibujar_datos(datos, out_path, file_name, figure_title="", multiple=True):
     plt.savefig(out_path + str(file_name) + "_lines.png", dpi=150)
     plt.show()
 
-def ajuste_parametrico(base_path, sub_paths, out_path, parametro, *args, sort_criteria='fitness total'):
 
+def ajuste_parametrico(base_path, sub_paths, out_path, parametro, *args, sort_criteria='fitness total'):
     # if sub_paths is "":
     #     sub_paths=get_subpaths(base_path, key=sub_paths_type)
     print(sub_paths)
@@ -119,15 +120,15 @@ def ajuste_parametrico(base_path, sub_paths, out_path, parametro, *args, sort_cr
         # dibujar_datos(datos, out_path, file_name="Datos no ordenados multiple", figure_title=parametro, multiple=True)
         dibujar_datos(datos_ordenados, out_path, figure_title=parametro, file_name="Datos ordenados por mejor fitness")
 
-def get_subpaths(path, key=str.lower):
-    return sorted(next(walk(path))[1], key=key)
 
+def get_subpaths(full_path, key=str.lower):
+    if not path.exists(full_path): exit("No existe la ruta {0}.\n¿Has cambiado el BASE_PATH?".format(full_path))
+    return sorted(next(walk(full_path))[1], key=key)
 
-
-# # -300, 72, 1016
-# BASE_URL = "C:\\Users\\GL753V\\Documents\\Projects\\TFM-graficador\\ejecuciones\\ajuste-parametrico\\caso6\\primera-iteracion\\"
-# base_path = BASE_URL + "1-TipoVNS"
-# sub_paths = ["VND", "RVNS", "BVNS", "GVNS", "SVNS-optimo"]
-# parametro="Tipo VNS"
-# out_path="1-3 "+parametro+"/"
-# ajuste_parametrico(base_path, sub_paths, out_path, parametro)
+# BASE_URL = "C:\\Users\\GL753V\\Documents\\Projects\\TFM-graficador\\ejecuciones\\ajuste-parametrico\\caso7\\primera-iteracion\\"
+# base_path = BASE_URL + "6-NumMaxIteracionesSinMejoraBusquedaLocal"
+# sub_paths = get_subpaths(base_path, key=int)
+# parametro = "Número máximo de iteraciones sin mejora en la Búsqueda Local"
+# out_path = "6 " + parametro + "/"
+#
+# ajuste_parametrico(base_path, sub_paths, out_path, parametro, {"multiple":True, "ordenados":False})

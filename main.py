@@ -2,8 +2,18 @@ from graficador import GeneradorGraficas
 
 if __name__ == '__main__':
     base = [
-        # 'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/config.yaml',
-        'ejecuciones/uso-entornos/config.yaml',
+        # 'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/1-ejecucion.yaml',
+        # 'graficas/uso-entornos/1-ejecucion.yaml',
+
+        # 'graficas/tipo-entornos/1-ejecucion.yaml',
+        # 'graficas/tipo-entornos/media.yaml',
+
+        'graficas/comparativa-alphas/caso3.yaml',
+        'graficas/comparativa-alphas/caso4.yaml',
+        # 'graficas/comparativa-alphas/caso4-simplificado.yaml',
+
+        # 'graficas/comparativa-tipos-vns/1-ejecucion.yaml',
+        # 'graficas/comparativa-tipos-vns/ejecuciones-medias.yaml',
     ]
 
     GeneradorGraficas(base).execute(
@@ -12,7 +22,7 @@ if __name__ == '__main__':
             "html": 2,
 
             # static raster
-            # "png": 0.75,
+            # "png": 1.5,
             # "jpg": 0.75,
 
             # static vectorial
@@ -76,8 +86,8 @@ if __name__ == '__main__':
     #
     # ]
     # test = [
-    #     'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/config.yaml',
-    #     'ejecuciones/tipo entornos/probabilisticos/condicion-parada-porcentaje-mejora/config.yaml'
+    #     'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/1-ejecucion.yaml',
+    #     'ejecuciones/tipo entornos/probabilisticos/condicion-parada-porcentaje-mejora/1-ejecucion.yaml'
     # ]
     #
     # output_path = 'ejecuciones/'

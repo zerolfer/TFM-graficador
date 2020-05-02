@@ -1,0 +1,87 @@
+---
+##############################################
+##    Fichero de propiedades por defecto    ##
+##############################################
+
+# Nombre común de los archivo de entrada, es decir de los archivos de salida del Sistema
+input_name: output
+
+# Direccion URL a la que se ha de buscar los csv
+# IMPORTANTE: Debe terminar con una barra (\ o /)
+input_base_url: [ graficas/comparativa-alphas/caso4/1-ejecucion/ ]
+
+# True para indicar que el path indicado en ``output_path`` es absoluto
+# False para relativo a *input_base_url*
+output_path_absolute: False
+
+# path RELATIVO o ABSOLUTO a *input_base_url* donde almacenar las gráficas de salida
+# IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
+output_path: ../../graficas/1-ejecucion/
+
+# nombre del fichero de salida
+fig_name: comparativa-alphas
+
+
+# -- DATA:
+
+# nombres de las columnas de los ficheros
+# no tienen por que corresponderse con las cabeceras
+# la columna 'iteracion' es obligatoria y debe aparecer con ese nombre
+column_names: ['iteracion', 'tiempo', 'fitness total',
+               'fitness 1', 'fitness 2', 'fitness 3', 'fitness 4',
+               'tamaño', 'porcentaje mejora', 'vecindad', # eliminar vecindad si son datos medios
+               "mejor fitness", "distancia", "restricciones incumplidas", "reinicios"
+]
+
+# posibles valores: ver "column_names"
+x_axis_variable: [
+  "iteracion" #, "tiempo"
+]
+y_axis_variable: "fitness total"
+
+# identificador de ejecucion inicial
+start_id: 1
+
+
+## nombres de la leyenda de la gráfica
+## representa el significado de cada fichero:
+
+# string a anteponer al valor de cada ejecución en la leyenda de la gráfica
+parametro: "\u03B1 = "
+
+# lista de valores de cada ejecucion ordenada por id de la misma
+valores: [-0.5,
+          0.5,
+          0.25,
+          1.0,
+          1.5,
+          1.25,
+          2.0,
+          5.0,
+          10.0
+]
+
+
+# -- APPEARANCE:
+
+
+# etiqueta para el eje Y
+name_y_axis: Fitness
+name_x_axis: [
+  Iteraciones #, Tiempo (s)
+]
+
+fig_title: "Comparativa alphas SVNS"
+fig_subtitles: [ Caso 4 ]
+
+## Decide si mostrar o no el Slider dinamico.
+# Solo disponible en el formato de salida HTML
+show_slider: true
+
+## Tamaño maximo para el eje x de la gráfica
+# La entrada "default" indica el valor por defecto
+# las demás entradas deben tener el nombre y capitalización de ``fig_subtitles``
+# si este campo no se pone, entonces no se limita el valor maximo del eje X
+#limite_iteraciones_raster:
+#  default: 7000
+#  Caso 4: 40000
