@@ -8,7 +8,7 @@ input_name: output
 
 # Direccion URL a la que se ha de buscar los csv
 # IMPORTANTE: Debe terminar con una barra (\ o /)
-input_base_url: [ graficas/comparativa-alphas/caso4-simplificado/1-ejecucion/ ]
+input_base_url: [ graficas/comparativa-alphas/caso4/1-ejecucion/ ]
 
 # True para indicar que el path indicado en ``output_path`` es absoluto
 # False para relativo a *input_base_url*
@@ -37,7 +37,7 @@ column_names: ['iteracion', 'tiempo', 'fitness total',
 x_axis_variable: [
   "iteracion" #, "tiempo"
 ]
-y_axis_variable: "fitness total"
+y_axis_variable: "mejor fitness"
 
 # identificador de ejecucion inicial
 start_id: 1

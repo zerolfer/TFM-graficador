@@ -5,15 +5,22 @@ if __name__ == '__main__':
         # 'ejecuciones/tipo entornos/probabilisticos/condicion-parada-tiempo/1-ejecucion.yaml',
         # 'graficas/uso-entornos/1-ejecucion.yaml',
 
-        # 'graficas/tipo-entornos/1-ejecucion.yaml',
+        'graficas/tipo-entornos/1-ejecucion.yaml',
         # 'graficas/tipo-entornos/media.yaml',
 
-        'graficas/comparativa-alphas/caso3.yaml',
-        'graficas/comparativa-alphas/caso4.yaml',
+        # 'graficas/comparativa-alphas/caso3.yaml',
+        # 'graficas/comparativa-alphas/caso4.yaml',
         # 'graficas/comparativa-alphas/caso4-simplificado.yaml',
+        # 'graficas/comparativa-alphas/caso8.yaml',
+        # 'graficas/comparativa-alphas/caso9.yaml',
 
         # 'graficas/comparativa-tipos-vns/1-ejecucion.yaml',
         # 'graficas/comparativa-tipos-vns/ejecuciones-medias.yaml',
+
+        # 'graficas/svns/caso3.yaml',
+        # 'graficas/svns/caso4.yaml',
+        # 'graficas/svns/caso7.yaml'
+        # 'graficas/svns/caso8.yaml'
     ]
 
     GeneradorGraficas(base).execute(
@@ -22,7 +29,7 @@ if __name__ == '__main__':
             "html": 2,
 
             # static raster
-            # "png": 1.5,
+            "png": 1,
             # "jpg": 0.75,
 
             # static vectorial

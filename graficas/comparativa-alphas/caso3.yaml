@@ -37,7 +37,7 @@ column_names: ['iteracion', 'tiempo', 'fitness total',
 x_axis_variable: [
   "iteracion" #, "tiempo"
 ]
-y_axis_variable: "fitness total"
+y_axis_variable: "mejor fitness"
 
 # identificador de ejecucion inicial
 start_id: 1
@@ -50,7 +50,7 @@ start_id: 1
 parametro: "\u03B1 = "
 
 # lista de valores de cada ejecucion ordenada por id de la misma
-valores: [0.5, 1, 2, 5, 10]
+valores: [0.5, 1, 2, 5]
 
 
 # -- APPEARANCE:
@@ -62,7 +62,8 @@ name_x_axis: [
   Iteraciones #, Tiempo (s)
 ]
 
-fig_title: "Comparativa alphas SVNS"
+fig_title: "Comparativa desempeño alphas SVNS"
+# Representa cada input, por lo que deben tener la misma longitud que `input_base_url`
 fig_subtitles: [ Caso 3 ]
 
 ## Decide si mostrar o no el Slider dinamico.

@@ -159,7 +159,7 @@ class GeneradorGraficas:
 
         plot_info, X = self.leer_datos(param, url, range(param["start_id"], param["start_id"] + len(valores) - 1))
 
-        for x_idx, x_axis_variable in enumerate(param["x_axis_variable"]):
+        for x_idx, (x_axis_variable, x_axis_name) in enumerate(zip(param["x_axis_variable"], param["name_x_axis"])):
 
             fig_name = '{0}_{1}_{2}'.format(caso_name.replace(" ", ""), param['fig_name'], x_axis_variable)
 
@@ -232,7 +232,7 @@ class GeneradorGraficas:
                                 x=0.5,
                                 y=-0.12,
                                 showarrow=False,
-                                text=x_axis_variable,
+                                text=x_axis_name,
                                 font_size=13,
                                 xref="paper",
                                 yref="paper"
@@ -253,7 +253,7 @@ class GeneradorGraficas:
 
                     fig.write_image("{0}{1}.{2}".format(output_path, fig_name, extension), scale=scale)
 
-                print(extension + " ", end='')
+                print("{0} ✓\t".format(extension), end='')
 
             print('PROCESAMIENTO FINALIZADO')
         print()

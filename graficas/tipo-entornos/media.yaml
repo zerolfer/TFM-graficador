@@ -9,11 +9,14 @@ input_name: output
 # Direccion URL a la que se ha de buscar los csv
 # IMPORTANTE: Debe terminar con una barra (\ o /)
 input_base_url: [
-  ejecuciones/tipo-entornos/caso1/ejecuciones-medias/,
-  ejecuciones/tipo-entornos/caso3/ejecuciones-medias/,
-  ejecuciones/tipo-entornos/caso4/ejecuciones-medias/,
-  ejecuciones/tipo-entornos/caso5/ejecuciones-medias/,
-  ejecuciones/tipo-entornos/caso6/ejecuciones-medias/ ]
+  graficas/tipo-entornos/caso1/ejecuciones-medias/,
+  graficas/tipo-entornos/caso3/ejecuciones-medias/,
+  graficas/tipo-entornos/caso4/ejecuciones-medias/,
+  graficas/tipo-entornos/caso5/ejecuciones-medias/,
+  graficas/tipo-entornos/caso6/ejecuciones-medias/,
+  graficas/tipo-entornos/caso7/ejecuciones-medias/,
+  graficas/tipo-entornos/caso8/ejecuciones-medias/,
+  graficas/tipo-entornos/caso9/ejecuciones-medias/ ]
 
 # True para indicar que el path indicado en ``output_path`` es absoluto
 # False para relativo a *input_base_url*
@@ -73,7 +76,10 @@ fig_subtitles: [
   Caso 3,
   Caso 4,
   Caso 5,
-  Caso 6
+  Caso 6,
+  Caso 7,
+  Caso 8,
+  Caso 9
 ]
 
 ## Decide si mostrar o no el Slider dinamico.

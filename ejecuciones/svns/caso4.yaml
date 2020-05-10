@@ -8,7 +8,9 @@ input_name: output
 
 # Direccion URL a la que se ha de buscar los csv
 # IMPORTANTE: Debe terminar con una barra (\ o /)
-input_base_url: [ graficas/comparativa-alphas/caso4/1-ejecucion/ ]
+input_base_url: [
+  graficas/svns/caso7/slots/,
+]
 
 # True para indicar que el path indicado en ``output_path`` es absoluto
 # False para relativo a *input_base_url*
@@ -16,10 +18,10 @@ output_path_absolute: False
 
 # path RELATIVO o ABSOLUTO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
-output_path: ../../graficas/1-ejecucion/
+output_path: ../graficas/
 
 # nombre del fichero de salida
-fig_name: comparativa-alphas
+fig_name: svns_alphas
 
 
 # -- DATA:
@@ -27,17 +29,15 @@ fig_name: comparativa-alphas
 # nombres de las columnas de los ficheros
 # no tienen por que corresponderse con las cabeceras
 # la columna 'iteracion' es obligatoria y debe aparecer con ese nombre
-column_names: ['iteracion', 'tiempo', 'fitness total',
+column_names: ['iteracion', 'tiempo', 'fitness actual',
                'fitness 1', 'fitness 2', 'fitness 3', 'fitness 4',
-               'tamaño', 'porcentaje mejora', 'vecindad', # eliminar vecindad si son datos medios
-               "mejor fitness", "distancia", "restricciones incumplidas", "reinicios"
+               'tamaño', 'porcentaje mejora', 'vecindad',
+               "mejor fitness", "distancia", "restricciones", "reinicios"
 ]
 
 # posibles valores: ver "column_names"
-x_axis_variable: [
-  "iteracion" #, "tiempo"
-]
-y_axis_variable: "mejor fitness"
+x_axis_variable: ["iteracion", "tiempo"]
+y_axis_variable: "fitness actual"
 
 # identificador de ejecucion inicial
 start_id: 1
@@ -49,16 +49,9 @@ start_id: 1
 # string a anteponer al valor de cada ejecución en la leyenda de la gráfica
 parametro: "\u03B1 = "
 
-# lista de valores de cada ejecucion ordenada por id de la misma
+# lista de valores (y subdirectorios) de cada ejecucion ordenada por id de la misma
 valores: [
-          0.5,
-#          0.25,
-          1.0,
-          1.5,
-          1.25,
-          2.0,
-#          5.0,
-#          10.0
+  0.5, 1.0, 1.5, 1.25, 2.0, 5.0
 ]
 
 
@@ -67,13 +60,15 @@ valores: [
 
 # etiqueta para el eje Y
 name_y_axis: Fitness
-name_x_axis: [
-  Iteraciones #, Tiempo (s)
-]
+name_x_axis: [Iteraciones, Tiempo (s)]
 
 fig_title: "Comparativa desempeño alphas SVNS"
 # Representa cada input, por lo que deben tener la misma longitud que `input_base_url`
-fig_subtitles: [ Caso 4 ]
+fig_subtitles: [
+#  Caso 3,
+  Caso 4,
+#  Caso 8
+]
 
 ## Decide si mostrar o no el Slider dinamico.
 # Solo disponible en el formato de salida HTML

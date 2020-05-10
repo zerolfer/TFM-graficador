@@ -54,7 +54,7 @@ start_id: 1
 # string a anteponer al valor de cada ejecución en la leyenda de la gráfica
 parametro: ""
 
-# lista de valores de cada ejecucion ordenada por id de la misma
+# lista de valores (y subdirectorios) de cada ejecucion ordenada por id de la misma
 valores: [VND, RVNS, BVNS, GVNS, SVNS]
 
 
@@ -66,6 +66,7 @@ name_y_axis: Fitness
 name_x_axis: [Iteraciones, Tiempo (s)]
 
 fig_title: "Ejecución por 10 minutos con entornos probabilísticos"
+# Representa cada input, por lo que deben tener la misma longitud que `input_base_url`
 fig_subtitles: [Caso 1,Caso 3,Caso 4,Caso 5,Caso 6,Caso 7,Caso 8,Caso 9]
 
 ## Decide si mostrar o no el Slider dinamico.

@@ -24,30 +24,34 @@ def rellenar_faltantes():
         print()
 
 
-def cambiar_orden_columnas():
-    # path = "C:\\Users\\GL753V\\Documents\\Projects\\TFM-graficador\\graficas\\comparativa-tipos-vns\\caso7\\1-ejecucion\\"
-    path = "C:\\Users\\GL753V\\Documents\\Projects\\TFM-graficador\\graficas\\comparativa-tipos-vns\\caso7\\ejecuciones-medias\\"
+def cambiar_orden_columnas(path, medias=False):
+    if not medias:
+        names = ["iteracion", "tiempo (ms)", "fitness total", "fitness 1", "fitness 2", "fitness 3",
+                 "fitness 4", "tamaño", "porcentajeMejora", "vecindad", "mejor fitness",
+                 "distancia", "restricciones incumplidas", "reinicios"]
+        names_alterades = ["iteracion", "tiempo (ms)", "mejor fitness", "fitness 1", "fitness 2", "fitness 3",
+                           "fitness 4", "tamaño", "porcentajeMejora", "vecindad", "fitness total",
+                           "distancia", "restricciones incumplidas", "reinicios"]
+
+    else:
+        names = ["iteracion", "tiempo (ms)", "fitness total", "fitness 1", "fitness 2", "fitness 3",
+                 "fitness 4", "tamaño", "porcentajeMejora", "mejor fitness",
+                 "distancia", "restricciones incumplidas", "reinicios"]  # para ejecuciones medias
+        names_alterades = ["iteracion", "tiempo (ms)", "mejor fitness", "fitness 1", "fitness 2", "fitness 3",
+                           "fitness 4", "tamaño", "porcentajeMejora", "fitness total",
+                           "distancia", "restricciones incumplidas", "reinicios"]  # para ejecuciones medias
+
     print(path)
-    df = pd.read_csv(path + 'output5.csv',
-                     sep=';', skiprows=[0],
-                     # names=["iteracion", "tiempo (ms)", "fitness total", "fitness 1", "fitness 2", "fitness 3",
-                     #        "fitness 4", "tamaño", "porcentajeMejora", "vecindad", "mejor fitness",
-                     #        "distancia", "restricciones incumplidas", "reinicios"])
-                     names=["iteracion", "tiempo (ms)", "fitness total", "fitness 1", "fitness 2", "fitness 3",
-                            "fitness 4", "tamaño", "porcentajeMejora", "mejor fitness",
-                            "distancia", "restricciones incumplidas", "reinicios"])  # para ejecuciones medias
+    df = pd.read_csv(path + 'output5.csv', sep=';', skiprows=[0], names=names)  # para ejecuciones medias
+
     cols = df.columns.tolist()
     print(cols)
-    # cols = ["iteracion", "tiempo (ms)", "mejor fitness", "fitness 1", "fitness 2", "fitness 3",
-    #                         "fitness 4", "tamaño", "porcentajeMejora", "vecindad", "fitness total",
-    #                         "distancia", "restricciones incumplidas", "reinicios"]
-    cols = ["iteracion", "tiempo (ms)", "mejor fitness", "fitness 1", "fitness 2", "fitness 3",
-            "fitness 4", "tamaño", "porcentajeMejora", "fitness total",
-            "distancia", "restricciones incumplidas", "reinicios"]  # para ejecuciones medias
-    print(cols)
-    df = df[cols]
-    df.to_csv(path + "output6.csv", sep=';', index=False)
+    print(names_alterades)
+    df = df[names_alterades]
 
+    df.to_csv(path + "output6.csv", sep=';', index=False)
+    print()
 
 if __name__ == "__main__":
-    cambiar_orden_columnas()
+    cambiar_orden_columnas(
+        "C:\\Users\\GL753V\\Documents\\Projects\\TFM-graficador\\graficas\\comparativa-tipos-vns\\caso7")

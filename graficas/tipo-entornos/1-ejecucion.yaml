@@ -9,11 +9,14 @@ input_name: output
 # Direccion URL a la que se ha de buscar los csv
 # IMPORTANTE: Debe terminar con una barra (\ o /)
 input_base_url: [
-  ejecuciones/tipo-entornos/caso1/1-ejecucion/,
-  ejecuciones/tipo-entornos/caso3/1-ejecucion/,
-  ejecuciones/tipo-entornos/caso4/1-ejecucion/,
-  ejecuciones/tipo-entornos/caso5/1-ejecucion/,
-  ejecuciones/tipo-entornos/caso6/1-ejecucion/ ]
+  graficas/tipo-entornos/caso1/1-ejecucion/,
+  graficas/tipo-entornos/caso3/1-ejecucion/,
+  graficas/tipo-entornos/caso4/1-ejecucion/,
+  graficas/tipo-entornos/caso5/1-ejecucion/,
+  graficas/tipo-entornos/caso6/1-ejecucion/,
+  graficas/tipo-entornos/caso7/1-ejecucion/,
+  graficas/tipo-entornos/caso8/1-ejecucion/,
+  graficas/tipo-entornos/caso9/1-ejecucion/ ]
 
 # True para indicar que el path indicado en ``output_path`` es absoluto
 # False para relativo a *input_base_url*
@@ -21,7 +24,7 @@ output_path_absolute: False
 
 # path RELATIVO o ABSOLUTO a *input_base_url* donde almacenar las gráficas de salida
 # IMPORTANTE: Debe terminar con una barra (\ o /) y comenzar sin ella
-output_path: ../../graficas/1-ejecucion/
+output_path: ../../graficas/1-ejecucion2/
 
 # nombre del fichero de salida
 fig_name: determinista-vs-probabilistico
@@ -73,7 +76,10 @@ fig_subtitles: [
   Caso 3,
   Caso 4,
   Caso 5,
-  Caso 6
+  Caso 6,
+  Caso 7,
+  Caso 8,
+  Caso 9
 ]
 
 ## Decide si mostrar o no el Slider dinamico.
