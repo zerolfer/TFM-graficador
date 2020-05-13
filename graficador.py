@@ -178,7 +178,7 @@ class GeneradorGraficas:
                     else:
                         limite = param["limite_iteraciones_raster"]["default"]
 
-                    if extension not in ["html"]:
+                    if extension not in ["html", "embedded"]:
                         if limite <= X[x_idx][-1]:
                             # counter = sum(1 for df in X if df.iloc[-1] > self.limite_iteraciones_raster)
                             counter = 0
@@ -197,7 +197,7 @@ class GeneradorGraficas:
                                 )
                             )
 
-                elif extension in ["html"]:
+                elif extension in ["html", "embedded"]:
                     fig.update_layout(
                         xaxis_rangeslider=dict(
                             visible=param["show_slider"]
@@ -214,6 +214,12 @@ class GeneradorGraficas:
                 if extension == "html":
                     py.io.write_html(fig, file=output_path + fig_name + '.html', auto_open=False)
                     modify_HTML_for_embedding("{0}{1}.{2}".format(output_path, fig_name, extension))
+
+                elif extension == "embedded":
+                    file_name = '{0}_{1}'.format(caso_name.replace(" ", ""), x_axis_variable)
+                    py.io.write_html(fig, file=output_path + file_name + "__embedded" + '.html', auto_open=False,
+                                     include_plotlyjs=False, full_html=False)
+                    # modify_HTML_for_embedding("{0}{1}.{2}".format(output_path, file_name, extension))
 
                 else:
                     # # en el output estatico no queremos Slider en ningun caso
